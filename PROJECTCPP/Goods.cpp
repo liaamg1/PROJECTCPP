@@ -1,6 +1,10 @@
 #include "Goods.h"
 
-Goods::Goods(int weight, int amount, std::string& type, std::string& pallet) : weight(weight), amount(amount), type(type), pallet(pallet)
+Goods::Goods() : weight(0), amount(0), type("?"), pallet("?")
+{
+}
+
+Goods::Goods(int weight, int amount, const std::string& type, const std::string& pallet) : weight(weight), amount(amount), type(type), pallet(pallet)
 {
 }
 

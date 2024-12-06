@@ -12,4 +12,4 @@ private:
 	int currentNrOfGoods;
 };
 #endif // !INTERN_LOGISTIK_H
-#pragma once
+

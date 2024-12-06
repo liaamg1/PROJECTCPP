@@ -6,7 +6,8 @@
 class Goods
 {
 public:
-	Goods(int weight, int amount, std::string& type, std::string& pallet);
+	Goods();
+	Goods(int weight, int amount, const std::string& type, const std::string& pallet);
 	~Goods();
 
 	//GET
@@ -18,8 +19,8 @@ public:
 	//SET
 	void setWeight(int weight);
 	void setAmount(int amount);
-	void setType(std::string& type);
-	void setPallet(std::string& pallet);
+	void setType(const std::string& type);
+	void setPallet(const std::string& pallet);
 
 
 private:
@@ -29,4 +30,4 @@ private:
 	std::string pallet;
 };
 #endif // !GOODS_H
-#pragma once
+

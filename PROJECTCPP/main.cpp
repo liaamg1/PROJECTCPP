@@ -1,8 +1,9 @@
-#include <iostream>
-#include <string>
+#include "Player.h"
 
 int main() {
-	std::cout << "Hello World!" << std::endl; // TEST 1
 	
+	// ADD PLAYER
+	Player player1(5, "Melvin");
+
 	return 0;
 }

@@ -11,7 +11,8 @@ public:
 
 	//GET
 	int getBalance();
-
+	void addMoney(int amount);
+	void subtractMoney(int amount);
 private:
 	int balance;
 	std::string name;

@@ -42,3 +42,9 @@ void Goods::setType(std::string type)
 {
 	this->type = type;
 }
+
+//----->EXPAND_CONTAINERS<-----
+
+bool Goods::operator==(const Goods& other) const
+{
+}

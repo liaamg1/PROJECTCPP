@@ -6,7 +6,7 @@
 #include <string>
 
 class Container {
-protected:
+private:
     float maxWeight;  // Maxvikt
     float usedWeight; // Använd vikt
     std::string containerType;  // Typ av container (Bulk, Food, etc.)
@@ -14,10 +14,6 @@ protected:
 public:
     Container(float maxWeight, const std::string& containerType);
         
-
-    virtual bool storeGoods(Goods* good) = 0;  // Lagrar en vara
-    virtual void displayInfo() const = 0;  // Skriv ut info om containern
-
     float getMaxWeight() const;
     float getUsedWeight() const;
     std::string getContainerType() const;

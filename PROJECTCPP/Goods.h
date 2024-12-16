@@ -28,7 +28,7 @@ public:
 	void setName(std::string name);
 	void setType(std::string type);
 
-
+	bool operator==(const Goods & other) const;
 
 
 };

@@ -6,7 +6,7 @@
 class StorageSystem
 {
 private:
-	container** containers;
+	Container** containers;
 	int currentNrOfContainers;
 	int capacity;
 	void expand();
@@ -15,9 +15,9 @@ public:
 	~StorageSystem();
 	
 	void addContainer(int amount, int weight, const std::string& type, const std::string& name);
-	bool removeContainers(int amount, int weight, const std::string& type, const std::string& name);
-	void displarAllContainers();
-	bool saveToFile();
+	bool removeContainer(int amount, int weight, const std::string& type, const std::string& name);
+	void displayAllContainers();
+	void saveToFile();
 
 };
 #endif // !STORAGE_SYSTEM_H

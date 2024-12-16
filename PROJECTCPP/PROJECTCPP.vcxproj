@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Bulk.cpp" />
+    <ClCompile Include="Container.cpp" />
     <ClCompile Include="Food.cpp" />
     <ClCompile Include="Goods.cpp" />
     <ClCompile Include="main.cpp" />
@@ -27,6 +28,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bulk.h" />
+    <ClInclude Include="BulkContainer.h" />
+    <ClInclude Include="Container.h" />
+    <ClInclude Include="CooledContainer.h" />
     <ClInclude Include="Food.h" />
     <ClInclude Include="Goods.h" />
     <ClInclude Include="StorageSystem.h" />

@@ -12,10 +12,10 @@ public:
     ~Food(); // Destruktör
     void displayInfo() const;  // Metod för att visa information om matvaran
     void setQuantity(int quantity);  // Setter för quantity
-    int getQuantity() const;  // Getter för quantity
+    int getQuantity() const override;  // Getter för quantity
 
     // Beräkna quantity baserat på weight
-    void calculateQuantityBasedOnWeight(float weightPerUnit);
+    //void calculateQuantityBasedOnWeight(float weightPerUnit);
 };
 
 #endif // !FOOD_H

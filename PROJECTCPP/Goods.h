@@ -21,6 +21,7 @@ public:
 	float getWeight() const;
 	int getQuantity() const;
 	std::string getType() const;
+	//SET
 	void setWeight(float weight);
 	void setQuantity(int quantity);
 	void setName(std::string name);

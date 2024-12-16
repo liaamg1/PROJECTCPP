@@ -21,9 +21,11 @@
   <ItemGroup>
     <ClCompile Include="Goods.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="StorageSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Goods.h" />
+    <ClInclude Include="StorageSystem.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

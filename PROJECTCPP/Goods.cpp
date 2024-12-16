@@ -1,6 +1,6 @@
 #include "Goods.h"
 
-Goods::Goods() :weight(0), type("?"), name("?"), quantity(0)
+Goods::Goods() :weight(0), type("?"), name("?")
 {
 }
 
@@ -19,12 +19,6 @@ float Goods::getWeight() const
 
 }
 
-int Goods::getQuantity() const
-{
-	return this->quantity;
-
-}
-
 std::string Goods::getType() const
 {
 	return this->type;
@@ -36,10 +30,7 @@ void Goods::setWeight(float weight)
 	this->weight = weight;
 }
 
-void Goods::setQuantity(int quantity)
-{
-	this->quantity = quantity;
-}
+
 
 void Goods::setName(std::string name)
 {

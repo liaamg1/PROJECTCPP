@@ -9,7 +9,7 @@ class Goods
 private:
 	float weight;
 
-	int quantity;
+	
 	std::string name;
 	std::string type;
 
@@ -20,10 +20,8 @@ public:
 	//GET
 	std::string getName() const;
 	float getWeight() const;
-	int getQuantity() const;
 	std::string getType() const;
 	void setWeight(float weight);
-	void setQuantity(int quantity);
 	void setName(std::string name);
 	void setType(std::string type);
 

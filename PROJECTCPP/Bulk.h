@@ -11,8 +11,8 @@ public:
 	Bulk();
 	~Bulk();
 	void displayInfo() const;
-
-
+	void setVolume(float volume);
+	float getVolume() const;
 };
 
 

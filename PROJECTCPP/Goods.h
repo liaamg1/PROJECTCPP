@@ -8,6 +8,7 @@ class Goods
 {
 private:
 	float weight;
+
 	int quantity;
 	std::string name;
 	std::string type;

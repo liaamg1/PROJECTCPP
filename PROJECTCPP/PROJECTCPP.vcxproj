@@ -19,10 +19,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Bulk.cpp" />
     <ClCompile Include="Goods.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Bulk.h" />
+    <ClInclude Include="Food.h" />
     <ClInclude Include="Goods.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

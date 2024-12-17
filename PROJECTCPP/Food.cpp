@@ -1,11 +1,7 @@
 #include "Food.h"
-#include <iostream>
 
-Food::Food() : quantity(0) // Initialisera quantity till 0
+Food::Food(int quantity = 0, float weight, const std::string& type, const std::string& name) : quantity(quantity), Goods(weight), Goods(type), Goods(name)
 {
-    setWeight(0.0f);  // Sätter vikt till 0.0
-    setName("");      // Sätter namn till en tom sträng
-    setType("");      // Sätter typ till en tom sträng
 }
 
 Food::~Food()

@@ -8,13 +8,11 @@ class Goods
 {
 private:
 	float weight;
-
-	
 	std::string name;
 	std::string type;
 
 public:
-	Goods();
+	Goods(float weight = 0.0f, const std::string& type = "Unknown",const std::string& name = "Unknown");
 	~Goods();
 
 	//GET

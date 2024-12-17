@@ -1,6 +1,6 @@
 #include "Goods.h"
 
-Goods::Goods() :weight(0), type("?"), name("?")
+Goods::Goods(float weight, const std::string& type, const std::string& name) : weight(weight), type(type), name(name)
 {
 }
 
@@ -47,4 +47,5 @@ void Goods::setType(std::string type)
 
 bool Goods::operator==(const Goods& other) const
 {
+	return false;
 }

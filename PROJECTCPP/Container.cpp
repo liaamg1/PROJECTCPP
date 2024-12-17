@@ -76,16 +76,10 @@ void Container::displayInfo() const
 	for (int i = 0; i < foodCount; ++i) {
 		std::cout << "- " << foodGoods[i]->getName() << " (Weight: " << foodGoods[i]->getWeight() << " kg)\n";
 	}
-}
-void Container::displayInfoBulk() const 
-{
-	std::cout << "Container Type: " << containerType << std::endl;
-	std::cout << "Max Weight: " << maxWeight << " kg\n";
-	std::cout << "Used Weight: " << usedWeight << " kg\n";
-	std::cout << "Items in the container:\n";
 
 	for (int i = 0; i < bulkCount; ++i)
 	{
 		std::cout << "- " << bulkGoods[i]->getName() << " (Weight: " << bulkGoods[i]->getWeight() << " kg)\n";
 	}
 }
+

@@ -3,6 +3,8 @@
 #include "Food.h"
 #include "Bulk.h"
 int main() {
+
+    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
     // Skapa en container med en maxvikt på 10.0 kg
     Container foodContainer(10.0f, "FoodContainer");
     Container bulkContainer(10.0f, "BulkContainer");
@@ -22,7 +24,7 @@ int main() {
     gravel.toString();
     std::cout << std::endl;
     std::cout << std::endl;
-    bulkContainer.displayInfoBulk();
+    bulkContainer.displayInfo();
     std::cout << std::endl;
     std::cout << std::endl;
     return 0;

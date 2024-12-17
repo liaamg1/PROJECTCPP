@@ -26,7 +26,7 @@ public:
     bool storeBulk(Goods* bulk);
 
     void displayInfo() const;
-    void displayInfoBulk() const;
+    
 };
 
 #endif

@@ -9,10 +9,10 @@ private:
 
 public:
     Food(int quantity = 0, float weight, const std::string& type = "Food", const std::string& name);  // Initialisera quantity till 0
-    ~Food(); // Destruktör
-    void displayInfo() const;  // Metod för att visa information om matvaran
+    ~Food(); // Destruktor
     void setQuantity(int quantity);  // Setter för quantity
     int getQuantity() const override;  // Getter för quantity
+    std::string toString() const;
 
     // Beräkna quantity baserat på weight
     //void calculateQuantityBasedOnWeight(float weightPerUnit);

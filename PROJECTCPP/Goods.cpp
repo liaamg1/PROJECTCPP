@@ -4,9 +4,14 @@ Goods::Goods(float weight, const std::string& type, const std::string& name) : w
 {
 }
 
+//----->DECONSTRUCTOR<-----
+
 Goods::~Goods()
 {
+	std::cout << "Destroying Goods" << std::endl;
 }
+
+//----->GET<-----
 
 std::string Goods::getName() const
 {
@@ -25,11 +30,12 @@ std::string Goods::getType() const
 
 }
 
+//----->SET<-----
+
 void Goods::setWeight(float weight)
 {
 	this->weight = weight;
 }
-
 
 
 void Goods::setName(std::string name)
@@ -43,9 +49,9 @@ void Goods::setType(std::string type)
 	this->type = type;
 }
 
-//----->EXPAND_CONTAINERS<-----
+//----->TO_STRING<-----
 
-bool Goods::operator==(const Goods& other) const
+std::string Goods::toString() const
 {
-	return false;
+	return "Weight: " + std::to_string(this->weight) + "\nType: " + this->type + "\nName: " + this->name;
 }

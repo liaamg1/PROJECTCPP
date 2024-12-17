@@ -13,7 +13,7 @@ private:
 
 public:
 	Goods(float weight = 0.0f, const std::string& type = "Unknown",const std::string& name = "Unknown");
-	~Goods();
+	virtual ~Goods();
 
 	//GET
 	std::string getName() const;
@@ -26,9 +26,7 @@ public:
 	void setName(std::string name);
 	void setType(std::string type);
 
-	bool operator==(const Goods & other) const;
-
-
+	virtual std::string toString() const;
 };
 
 

@@ -4,25 +4,28 @@ Food::Food(int quantity, float weight, const std::string& type, const std::strin
 {
 }
 
+//----->DECONSTRUCTOR<-----
+
 Food::~Food()
 {
+    std::cout << "Destroying Food" << std::endl;
 }
 
-void Food::displayInfo() const
-{
-    // Använd getter-metoder från Goods för att skriva ut information
-    std::cout << "Food Quantity: " << getQuantity() << " units" << std::endl;
-    std::cout << "Food Weight: " << getWeight() << " kg" << std::endl;
-    std::cout << "Food Type: " << getType() << std::endl;
-    std::cout << "Food Name: " << getName() << std::endl;
-}
+//----->SET<-----
 
 void Food::setQuantity(int quantity)
 {
     this->quantity = quantity;
 }
 
+//----->GET<-----
+
 int Food::getQuantity() const
 {
     return this->quantity;
+}
+
+std::string Food::toString() const
+{
+    return std::to_string(this->quantity) + "\n" + Goods::toString();
 }

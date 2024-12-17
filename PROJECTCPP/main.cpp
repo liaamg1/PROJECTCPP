@@ -1,30 +1,20 @@
 #include <iostream>
 #include "Container.h"
-#include "Goods.h"
-#include "Bulk.h"
 #include "Food.h"
 
 int main() {
-    
+    // Skapa en container med en maxvikt på 10.0 kg
+    Container foodContainer(10.0f, "FoodContainer");
 
-    //// Skapa Bulk vara
-    //Bulk bulkGood;
-    //bulkGood.setType("Bulk");
-    //bulkGood.setName("Bulk Item");
-    //bulkGood.setWeight(200.0f);  // 200 kg
-    //bulkGood.setVolume(2.0f);    // 2 m3
+    // Skapa några food-objekt
+    Food apple(3, 0.2f, "Food", "Apple");     // 0.2 kg per äpple
+    Food cucumber(2, 0.5f, "Food", "Cucumber");  // 0.5 kg per gurka
+    Food cucumber1(2, 10.0f, "Food", "Cucumber");
 
-    //// Skapa Food vara
-    //Food foodGood;
-    //foodGood.setType("Food");
-    //foodGood.setName("Food Item");
-    //foodGood.setWeight(1.0f);  // 1 kg per enhet
-    //foodGood.setQuantity(50);  // 50 enheter
+    foodContainer.storeFood(&apple);
+    foodContainer.storeFood(&cucumber);
+    foodContainer.storeFood(&cucumber1);
+    foodContainer.displayInfo();
 
-    //foodGood.displayInfo();
-    //std::cout << std::endl;
-    //std::cout << std::endl;
-    //std::cout << std::endl;
-    //bulkGood.displayInfo();
     return 0;
 }

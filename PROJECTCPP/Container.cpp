@@ -4,10 +4,8 @@
 Container::Container(float maxWeight, const std::string& containerType) : maxWeight(maxWeight), usedWeight(0), containerType(containerType), foodCount(0), bulkCount(0)
 {
 	for (int i = 0; i < MAX_GOODS; ++i) {
-		foodGoods[i] = nullptr;  // Sätt varje element i foodGoods till nullptr
-	}
-	for (int i = 0; i < MAX_GOODS; ++i) {
-		bulkGoods[i] = nullptr;  // Sätt varje element i foodGoods till nullptr
+		foodGoods[i] = nullptr; // Sätt varje element i foodGoods till nullptr
+		bulkGoods[i] = nullptr; 
 	}
 }
 

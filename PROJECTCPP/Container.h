@@ -16,6 +16,7 @@ private:
     Goods* bulkGoods[MAX_GOODS];
 public:
     Container(float maxWeight, const std::string& containerType);
+    ~Container();
         
     float getMaxWeight() const;
     float getUsedWeight() const;
@@ -28,5 +29,4 @@ public:
     void displayInfo() const;
     
 };
-
 #endif

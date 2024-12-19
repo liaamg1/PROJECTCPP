@@ -9,6 +9,11 @@ Container::Container(float maxWeight, const std::string& containerType) : maxWei
 	}
 }
 
+Container::~Container()
+{
+	
+}
+
 float Container::getMaxWeight() const
 {
 	return maxWeight;

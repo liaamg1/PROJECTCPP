@@ -12,7 +12,7 @@ private:
 	std::string type;
 
 public:
-	Goods(float weight = 0.0f, const std::string& type = "Unknown",const std::string& name = "Unknown");
+	Goods(float weight = 0.0f, const std::string& name = "Unknown");
 	virtual ~Goods();
 
 	//GET

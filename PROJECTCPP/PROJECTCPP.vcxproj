@@ -23,6 +23,7 @@
     <ClCompile Include="Container.cpp" />
     <ClCompile Include="Food.cpp" />
     <ClCompile Include="Goods.cpp" />
+    <ClCompile Include="GoodsHandler.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="StorageSystem.cpp" />
   </ItemGroup>
@@ -33,6 +34,7 @@
     <ClInclude Include="CooledContainer.h" />
     <ClInclude Include="Food.h" />
     <ClInclude Include="Goods.h" />
+    <ClInclude Include="GoodsHandler.h" />
     <ClInclude Include="StorageSystem.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

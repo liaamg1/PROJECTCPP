@@ -1,6 +1,6 @@
 #include "Goods.h"
 
-Goods::Goods(float weight, const std::string& type, const std::string& name) : weight(weight), type(type), name(name)
+Goods::Goods(float weight, const std::string& name) : weight(weight), name(name)
 {
 }
 

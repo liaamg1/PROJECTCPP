@@ -1,6 +1,6 @@
 #include "Food.h"
 
-Food::Food(int quantity, float weight, const std::string& type, const std::string& name) : quantity(quantity), Goods(weight, type, name)
+Food::Food(int quantity, float weight, const std::string& name) : quantity(quantity), Goods(weight, name)
 {
 }
 

@@ -1,6 +1,6 @@
 #include "Bulk.h"
 
-Bulk::Bulk(float volume, float weight, const std::string& type, const std::string& name) : volume(volume), Goods(weight, type, name)
+Bulk::Bulk(float volume, float weight, const std::string& name) : volume(volume), Goods(weight, name)
 {
 }
 

@@ -34,9 +34,11 @@ GoodsHandler::~GoodsHandler()
 	// DELETING PTR STOCK
 	for (int i = 0; i < this->currentNrOfGoods; i++)
 	{
+		std::cout << "\nDeleting contents: " << stock[i]->getName() << std::endl;
 		delete this->stock[i];
 	}
 	delete this->stock;
+	std::cout << "\nstock ptr deleted" << std::endl;
 }
 
 //----->ADD_GOODS<-----
@@ -51,6 +53,8 @@ bool GoodsHandler::addGoods(Goods* aGoods)
 	}
 	return didAdd;
 }
+
+//----->SHOW_GOODS<-----
 
 void GoodsHandler::showAll() const
 {

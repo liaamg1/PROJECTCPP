@@ -14,10 +14,4 @@ public:
 	float getVolume() const;
 	std::string toString() const;
 };
-
-
-
-
-
-
 #endif // !BULK_H

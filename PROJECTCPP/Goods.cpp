@@ -53,5 +53,5 @@ void Goods::setType(std::string type)
 
 std::string Goods::toString() const
 {
-	return "Weight: " + std::to_string(this->weight) + "\nType: " + this->type + "\nName: " + this->name;
+	return "Weight: " + std::to_string(this->weight) + "\nName: " + this->name;
 }

@@ -2,13 +2,14 @@
 
 Bulk::Bulk(float volume, float weight, const std::string& name) : volume(volume), Goods(weight, name)
 {
+    std::cout << "Bulk" << std::endl;
 }
 
 //----->DECONSTRUCTOR<-----
 
 Bulk::~Bulk()
 {
-    std::cout << "Destroying Bulk" << std::endl;
+    std::cout << "\nDestroying Bulk" << std::endl;
 }
 
 //----->SET<-----
@@ -26,6 +27,6 @@ float Bulk::getVolume() const
 }
 std::string Bulk::toString() const
 {
-    return std::to_string(this->volume) + "\n" + Goods::toString();
+    return "\nVolume: " + std::to_string(this->volume) + "\n" + Goods::toString();
 }
 //BERÄKNA VOLUME OM BARA WEIGHT ÄR GIVET

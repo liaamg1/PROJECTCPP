@@ -2,13 +2,14 @@
 
 Food::Food(int quantity, float weight, const std::string& name) : quantity(quantity), Goods(weight, name)
 {
+    std::cout << "Food" << std::endl;
 }
 
 //----->DECONSTRUCTOR<-----
 
 Food::~Food()
 {
-    std::cout << "Destroying Food" << std::endl;
+    std::cout << "\nDestroying Food" << std::endl;
 }
 
 //----->SET<-----
@@ -27,5 +28,5 @@ int Food::getQuantity() const
 
 std::string Food::toString() const
 {
-    return std::to_string(this->quantity) + "\n" + Goods::toString();
+    return "\nQuantity: " + std::to_string(this->quantity) + "\n" + Goods::toString();
 }

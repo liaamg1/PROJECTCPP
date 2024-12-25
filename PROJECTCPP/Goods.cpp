@@ -2,6 +2,7 @@
 
 Goods::Goods(float weight, const std::string& name) : weight(weight), name(name)
 {
+	std::cout << "Constructing Goods" << std::endl;
 }
 
 //----->DECONSTRUCTOR<-----
@@ -24,12 +25,6 @@ float Goods::getWeight() const
 
 }
 
-std::string Goods::getType() const
-{
-	return this->type;
-
-}
-
 //----->SET<-----
 
 void Goods::setWeight(float weight)
@@ -44,14 +39,9 @@ void Goods::setName(std::string name)
 
 }
 
-void Goods::setType(std::string type)
-{
-	this->type = type;
-}
-
 //----->TO_STRING<-----
 
 std::string Goods::toString() const
 {
-	return "Weight: " + std::to_string(this->weight) + "\nType: " + this->type + "\nName: " + this->name;
+	return "Weight: " + std::to_string(this->weight) + "\nName: " + this->name;
 }

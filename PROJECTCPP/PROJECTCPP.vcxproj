@@ -29,9 +29,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bulk.h" />
-    <ClInclude Include="BulkContainer.h" />
     <ClInclude Include="Container.h" />
-    <ClInclude Include="CooledContainer.h" />
     <ClInclude Include="Food.h" />
     <ClInclude Include="Goods.h" />
     <ClInclude Include="GoodsHandler.h" />

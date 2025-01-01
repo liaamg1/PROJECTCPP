@@ -7,7 +7,8 @@ currentNrOfFood(0), currentNrOfBulk(0), foodStock(new Goods* [20] {nullptr}), bu
 {
 }
 
-GoodsHandler::GoodsHandler(const GoodsHandler& other) : stock(new Goods* [20] {nullptr}), currentNrOfGoods(other.currentNrOfGoods)
+GoodsHandler::GoodsHandler(const GoodsHandler& other) : stock(new Goods* [20] {nullptr}), currentNrOfGoods(other.currentNrOfGoods), bulkStock(new Goods* [20] {nullptr}),
+currentNrOfBulk(0), currentNrOfFood(0), foodStock(new Goods* [20] {nullptr})
 {
 	for (int i = 0; i < this->currentNrOfGoods; i++)
 	{

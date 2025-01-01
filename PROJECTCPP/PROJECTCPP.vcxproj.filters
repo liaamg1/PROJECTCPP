@@ -44,13 +44,7 @@
     <ClInclude Include="Bulk.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BulkContainer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Container.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CooledContainer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Food.h">

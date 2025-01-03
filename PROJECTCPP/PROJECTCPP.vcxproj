@@ -26,6 +26,7 @@
     <ClCompile Include="GoodsHandler.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="StorageSystem.cpp" />
+    <ClCompile Include="WelcomePage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bulk.h" />
@@ -34,6 +35,7 @@
     <ClInclude Include="Goods.h" />
     <ClInclude Include="GoodsHandler.h" />
     <ClInclude Include="StorageSystem.h" />
+    <ClInclude Include="WelcomePage.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

@@ -1,17 +1,19 @@
-#ifndef MENU_SYSTEM_H
-#define Menu_SYSTEM_H
-#include "iostream"
-#include "string"
+// MenuSystem.h
 
-class MenuSystem
-{
+#pragma once
+#include "StorageSystem.h"
+#include "GoodsHandler.h"
+
+class MenuSystem {
 public:
-	MenuSystem();
-	~MenuSystem();
+    MenuSystem();
+    ~MenuSystem();
 
-	void menuSystemStart();
+    void menuSystemStart();
+    void addBulkToContainer();
+    void addFoodToContainer();
+
 private:
-
+    StorageSystem* storageSystem;  // Pekare till StorageSystem
+    GoodsHandler goodsHandler;  // Här gör vi GoodsHandler till en långlivad instans
 };
-#endif // !MENU_SYSTEM_H
-

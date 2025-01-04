@@ -1,23 +1,28 @@
-#pragma once
+#ifndef CONTAINER_H
+#define CONTAINER_H
+
 #include "Goods.h"
-#include "Food.h"
-#include "Bulk.h"
 #include <iostream>
 
 class Container {
 private:
-    Goods* item;         // Den vara som finns i containern
-    double maxWeight;    // Max vikt för containern
-    double currentWeight; // Aktuell vikt i containern
+    Goods* items[10];  // Array för att hålla upp till 10 objekt i containern
+    int itemCount;
+    double maxWeight;
+    double currentWeight;
+    bool hasFood;   // Flagga för att kontrollera om containern har Food
+    bool hasBulk;   // Flagga för att kontrollera om containern har Bulk
 
 public:
-    Container(double maxWeight);       // Konstruktor
-    void showContent() const;          // Visa innehållet i containern
-    double getCurrentWeight() const;   // Hämta aktuell vikt
-    double getMaxWeight() const;       // Hämta max vikt
-    Goods* getItem();
-    void setItem(Goods* newItem);
-    // Hämta varan i containern (icke-const)
-    bool isEmpty() const;              // Kontrollera om containern är tom
-    bool canAddGoods(double weight) const; // Kontrollera om varan kan läggas till
+    Container(double maxWeight);
+
+    bool canAddGoods(double weight) const;
+    void addItem(Goods* goods);
+    void showContent() const;
+    bool isEmpty() const;
+    double getCurrentWeight() const;
+    double getMaxWeight() const;
+    Goods* getItem(int index) const;
 };
+
+#endif

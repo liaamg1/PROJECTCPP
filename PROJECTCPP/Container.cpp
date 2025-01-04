@@ -1,37 +1,77 @@
 #include "Container.h"
+#include "Goods.h"
+#include <iostream>
 #include "Food.h"
 #include "Bulk.h"
-#include <iostream>
 
-Container::Container(double maxWeight) : item(nullptr), maxWeight(maxWeight), currentWeight(0.0) {}
+Container::Container(double maxWeight)
+    : maxWeight(maxWeight), currentWeight(0.0), itemCount(0) {
+    // Initiera containern som tom
+    for (int i = 0; i < 10; i++) {
+        items[i] = nullptr;
+    }
+}
 
-void Container::showContent() const {
-    if (item != nullptr) {
-        std::cout << "Container holds: " << item->toString() << ", Current weight: " << currentWeight << std::endl;
+bool Container::canAddGoods(double weight) const {
+    // Kontrollera att det finns tillräckligt med plats för den nya varan
+    return (currentWeight + weight <= maxWeight);
+}
 
-        Food* foodItem = dynamic_cast<Food*>(item);
-        Bulk* bulkItem = dynamic_cast<Bulk*>(item);
-
-        if (foodItem != nullptr) {
-            std::cout << "Item: " << foodItem->getName()
-                << ", Quantity: " << foodItem->getQuantity()
-                << ", Weight: " << foodItem->getWeight() << std::endl;
+void Container::addItem(Goods* goods) {
+    if (canAddGoods(goods->getWeight()) && itemCount < 10) {
+        // Första varan sätter typen, om containern är tom
+        if (itemCount == 0) {
+            items[itemCount++] = goods;
+            currentWeight += goods->getWeight();  // Lägg till vikten
         }
-        else if (bulkItem != nullptr) {
-            std::cout << "Item: " << bulkItem->getName()
-                << ", Volume: " << bulkItem->getVolume()
-                << ", Weight: " << bulkItem->getWeight() << std::endl;
+        else {
+            // Kontrollera om vi försöker lägga till fel typ av vara
+            bool compatible = true;
+            for (int i = 0; i < itemCount; i++) {
+                if ((dynamic_cast<Food*>(goods) && dynamic_cast<Bulk*>(items[i])) ||
+                    (dynamic_cast<Bulk*>(goods) && dynamic_cast<Food*>(items[i]))) {
+                    compatible = false;
+                    break;
+                }
+            }
+
+            if (compatible) {
+                items[itemCount++] = goods;  // Lägg till varan
+                currentWeight += goods->getWeight();
+            }
+            else {
+                std::cout << "Cannot add this item: Container already contains a different type!" << std::endl;
+            }
         }
     }
     else {
+        std::cout << "Cannot add item: Not enough space in the container." << std::endl;
+    }
+}
+
+void Container::showContent() const {
+    if (itemCount == 0) {
         std::cout << "Container is empty!" << std::endl;
+        return;
     }
 
-    double totalWeightUsed = currentWeight;
-    double remainingWeight = maxWeight - currentWeight;
+    double totalWeightUsed = 0.0;
+    for (int i = 0; i < itemCount; i++) {
+        Goods* item = items[i];
+        if (item) {
+            std::cout << "Item " << i + 1 << ": " << item->toString()
+                << ", Weight: " << item->getWeight() << std::endl;
+            totalWeightUsed += item->getWeight();
+        }
+    }
 
+    double remainingWeight = maxWeight - totalWeightUsed;
     std::cout << "\nTotal weight used in container: " << totalWeightUsed << std::endl;
     std::cout << "Remaining weight capacity: " << remainingWeight << std::endl;
+}
+
+bool Container::isEmpty() const {
+    return itemCount == 0;
 }
 
 double Container::getCurrentWeight() const {
@@ -42,18 +82,9 @@ double Container::getMaxWeight() const {
     return maxWeight;
 }
 
-// Nu returneras ett icke-const pekare, så att vi kan modifiera innehållet
-Goods* Container::getItem() {
-    return item;
-}
-
-bool Container::isEmpty() const {
-    return item == nullptr;
-}
-
-bool Container::canAddGoods(double weight) const {
-    return currentWeight + weight <= maxWeight;
-}
-void Container::setItem(Goods* newItem) {
-    item = newItem;
+Goods* Container::getItem(int index) const {
+    if (index >= 0 && index < itemCount) {
+        return items[index];
+    }
+    return nullptr;
 }

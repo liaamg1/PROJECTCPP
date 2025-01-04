@@ -2,58 +2,61 @@
 #include <iostream>
 #include "Food.h"
 #include "Bulk.h"
+
 StorageSystem::StorageSystem() : containerCount(0) {
+    // Initiera containrarna som nullptr
     for (int i = 0; i < 10; i++) {
         containers[i] = nullptr;
     }
 }
 
 StorageSystem::~StorageSystem() {
+    // Radera alla containrar när StorageSystem förstörs
     for (int i = 0; i < containerCount; i++) {
         delete containers[i];
     }
 }
 
 bool StorageSystem::addContainer(double maxWeight) {
-    if (containerCount >= 10) {
-        std::cout << "Maximum number of containers reached!" << std::endl;
-        return false;
+    if (containerCount < 10) {
+        containers[containerCount] = new Container(maxWeight);
+        containerCount++;
+        return true;
     }
-    containers[containerCount] = new Container(maxWeight);
-    containerCount++;
-    return true;
+    std::cout << "Maximum number of containers reached!" << std::endl;
+    return false;
 }
 
 bool StorageSystem::addGoods(Goods* goods) {
-    // Försök att lägga till varan i en container
-    for (int i = 0; i < containerCount; i++) {
-        if (containers[i]->isEmpty() ||
-            (dynamic_cast<Food*>(containers[i]->getItem()) && dynamic_cast<Food*>(goods)) ||
-            (dynamic_cast<Bulk*>(containers[i]->getItem()) && dynamic_cast<Bulk*>(goods))) {
+    bool added = false;
 
-            // Kolla om containern kan ta emot varan baserat på vikten
-            if (containers[i]->canAddGoods(goods->getWeight())) {
-                // Lägg till varan i containern
-                containers[i]->setItem(goods); // Nu fungerar detta för att sätta varan
-                return true;
-            }
+    // Försök att lägga till varan i en passande container
+    for (int i = 0; i < containerCount; i++) {
+        if (containers[i]->canAddGoods(goods->getWeight())) {
+            containers[i]->addItem(goods);  // Lägg till varan i containern
+            added = true;
+            break;  // När varan har lagts till, avsluta loopen
         }
     }
 
-    // Om ingen passande container hittas, skapa en ny container och lägg till varan
-    if (containerCount < 10) {
-        addContainer(100.0);  // Skapa en ny container med maxvikt 100.0 (eller lämplig vikt)
-        containers[containerCount - 1]->setItem(goods);  // Lägg till varan i den nya containern
-        return true;
+    // Om ingen passande container hittades, skapa en ny container och lägg till varan där
+    if (!added) {
+        if (containerCount < 10) {
+            addContainer(100.0);  // Skapa en ny container med maxvikt 100.0
+            containers[containerCount - 1]->addItem(goods);  // Lägg till varan i den nya containern
+            added = true;
+        }
+        else {
+            std::cout << "No suitable container available!" << std::endl;
+        }
     }
 
-    std::cout << "No suitable container available!" << std::endl;
-    return false;
+    return added;
 }
 
 void StorageSystem::showAllContainers() const {
     for (int i = 0; i < containerCount; i++) {
-        std::cout << "Container " << i + 1 << ": ";
-        containers[i]->showContent();
+        std::cout << "Container " << i + 1 << " contains the following items:" << std::endl;
+        containers[i]->showContent();  // Visa alla varor i containern
     }
 }

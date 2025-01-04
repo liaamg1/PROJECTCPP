@@ -41,11 +41,7 @@ GoodsHandler::~GoodsHandler()
 	}
 	delete[] stock;
 	std::cout << "\nstock ptr deleted" << std::endl;
-	for (int i = 0; i < this->currentNrOfBulk; i++)
-	{
-		delete this->bulkStock[i];
-	}
-	delete[] this->bulkStock;
+	
 }
 
 //----->ADD_GOODS<-----

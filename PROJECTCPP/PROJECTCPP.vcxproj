@@ -25,6 +25,7 @@
     <ClCompile Include="Goods.cpp" />
     <ClCompile Include="GoodsHandler.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MenuSystem.cpp" />
     <ClCompile Include="StorageSystem.cpp" />
     <ClCompile Include="WelcomePage.cpp" />
   </ItemGroup>
@@ -34,6 +35,7 @@
     <ClInclude Include="Food.h" />
     <ClInclude Include="Goods.h" />
     <ClInclude Include="GoodsHandler.h" />
+    <ClInclude Include="MenuSystem.h" />
     <ClInclude Include="StorageSystem.h" />
     <ClInclude Include="WelcomePage.h" />
   </ItemGroup>

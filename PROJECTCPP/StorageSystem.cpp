@@ -1,6 +1,7 @@
 #include "StorageSystem.h"
 #include <iostream>
-
+#include "Food.h"
+#include "Bulk.h"
 StorageSystem::StorageSystem() : containerCount(0) {
     for (int i = 0; i < 10; i++) {
         containers[i] = nullptr;
@@ -23,31 +24,32 @@ bool StorageSystem::addContainer(double maxWeight) {
     return true;
 }
 
-bool StorageSystem::addGoodsToContainer(Goods* goods) {
+bool StorageSystem::addGoods(Goods* goods) {
     // Försök att lägga till varan i en container
     for (int i = 0; i < containerCount; i++) {
-        // Om containern är tom, eller om både containern och varan är av samma typ
-        if (containers[i]->getItem() == nullptr ||
-            // Om containern och varan båda är av typen Food
+        if (containers[i]->isEmpty() ||
             (dynamic_cast<Food*>(containers[i]->getItem()) && dynamic_cast<Food*>(goods)) ||
-            // Om containern och varan båda är av typen Bulk
             (dynamic_cast<Bulk*>(containers[i]->getItem()) && dynamic_cast<Bulk*>(goods))) {
-            if (containers[i]->addGoods(goods)) {
+
+            // Kolla om containern kan ta emot varan baserat på vikten
+            if (containers[i]->canAddGoods(goods->getWeight())) {
+                // Lägg till varan i containern
+                containers[i]->setItem(goods); // Nu fungerar detta för att sätta varan
                 return true;
             }
         }
     }
 
-    // Om ingen passande container hittas, skapa en ny container
+    // Om ingen passande container hittas, skapa en ny container och lägg till varan
     if (containerCount < 10) {
-        addContainer(100.0);  // Eller något maxvikt som passar
-        return containers[containerCount - 1]->addGoods(goods);
+        addContainer(100.0);  // Skapa en ny container med maxvikt 100.0 (eller lämplig vikt)
+        containers[containerCount - 1]->setItem(goods);  // Lägg till varan i den nya containern
+        return true;
     }
 
     std::cout << "No suitable container available!" << std::endl;
     return false;
 }
-
 
 void StorageSystem::showAllContainers() const {
     for (int i = 0; i < containerCount; i++) {

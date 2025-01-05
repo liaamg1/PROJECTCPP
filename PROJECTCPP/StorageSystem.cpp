@@ -32,24 +32,37 @@ bool StorageSystem::addGoods(std::unique_ptr<Goods> goods) {
 
     // Försök att lägga till varan i en passande container
     for (int i = 0; i < containerCount; i++) {
-        bool isFirstItemBulk = dynamic_cast<Bulk*>(containers[i]->getItem(0));
+        // Kolla om första varan i containern är av samma typ
+        bool isFirstItemBulk = dynamic_cast<Bulk*>(containers[i]->getItem(0)) != nullptr;
 
         if (isFirstItemBulk && dynamic_cast<Bulk*>(goods.get())) {
-            containers[i]->addItem(std::move(goods));
-            added = true;
-            break;
+            // Lägg till varan i containern om den får plats
+            if (containers[i]->canAddGoods(goods->getWeight())) {
+                containers[i]->addItem(std::move(goods));
+                added = true;
+                break;
+            }
         }
         else if (!isFirstItemBulk && dynamic_cast<Food*>(goods.get())) {
-            containers[i]->addItem(std::move(goods));
-            added = true;
-            break;
+            // Lägg till varan i containern om den får plats
+            if (containers[i]->canAddGoods(goods->getWeight())) {
+                containers[i]->addItem(std::move(goods));
+                added = true;
+                break;
+            }
         }
     }
 
-    // Om ingen passande container hittades, skapa en ny container och lägg till varan där
+    // Om ingen passande container hittades, skapa en ny container
     if (!added) {
         if (containerCount < 10) {
-            addContainer(100.0);  // Skapa en ny container med maxvikt 100.0
+            // Skapa en ny container baserat på varans typ (Bulk eller Food)
+            if (dynamic_cast<Bulk*>(goods.get())) {
+                addContainer(100.0);  // Skapa en container för Bulk med en maxvikt
+            }
+            else {
+                addContainer(50.0);  // Skapa en container för Food med en annan maxvikt
+            }
             containers[containerCount - 1]->addItem(std::move(goods));  // Lägg till varan i den nya containern
             added = true;
         }
@@ -60,6 +73,7 @@ bool StorageSystem::addGoods(std::unique_ptr<Goods> goods) {
 
     return added;
 }
+
 
 void StorageSystem::showAllContainers() const {
     for (int i = 0; i < containerCount; i++) {

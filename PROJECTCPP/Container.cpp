@@ -12,6 +12,8 @@ Container::Container(double maxWeight)
     }
 }
 
+
+
 bool Container::canAddGoods(double weight) const {
     // Kontrollera att det finns tillräckligt med plats för den nya varan
     return (currentWeight + weight <= maxWeight);
@@ -19,24 +21,22 @@ bool Container::canAddGoods(double weight) const {
 
 void Container::addItem(Goods* goods) {
     if (canAddGoods(goods->getWeight()) && itemCount < 10) {
-        // Första varan sätter typen, om containern är tom
         if (itemCount == 0) {
             items[itemCount++] = goods;
             currentWeight += goods->getWeight();  // Lägg till vikten
         }
         else {
-            // Kontrollera om vi försöker lägga till fel typ av vara
-            bool compatible = true;
+            bool compatible = false;
             for (int i = 0; i < itemCount; i++) {
-                if ((dynamic_cast<Food*>(goods) && dynamic_cast<Bulk*>(items[i])) ||
-                    (dynamic_cast<Bulk*>(goods) && dynamic_cast<Food*>(items[i]))) {
-                    compatible = false;
+                if ((dynamic_cast<Food*>(goods) && dynamic_cast<Food*>(items[i])) ||
+                    (dynamic_cast<Bulk*>(goods) && dynamic_cast<Bulk*>(items[i]))) {
+                    compatible = true;
                     break;
                 }
             }
 
             if (compatible) {
-                items[itemCount++] = goods;  // Lägg till varan
+                items[itemCount++] = goods;
                 currentWeight += goods->getWeight();
             }
             else {

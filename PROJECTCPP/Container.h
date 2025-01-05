@@ -10,12 +10,11 @@ private:
     int itemCount;
     double maxWeight;
     double currentWeight;
-    bool hasFood;   // Flagga för att kontrollera om containern har Food
-    bool hasBulk;   // Flagga för att kontrollera om containern har Bulk
+   
 
 public:
     Container(double maxWeight);
-
+    
     bool canAddGoods(double weight) const;
     void addItem(Goods* goods);
     void showContent() const;

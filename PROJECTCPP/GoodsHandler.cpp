@@ -31,18 +31,23 @@ currentNrOfBulk(0), currentNrOfFood(0), foodStock(new Goods* [20] {nullptr})
 
 //----->Destructor<-----
 
-GoodsHandler::~GoodsHandler()
-{
-	// DELETING PTR STOCK
-	for (int i = 0; i < this->currentNrOfGoods; i++)
-	{
-		std::cout << "\nDeleting contents: " << stock[i]->getName() << std::endl;
-		delete this->stock[i];
+GoodsHandler::~GoodsHandler() {
+	// Deleting objects in foodStock and bulkStock
+	for (int i = 0; i < this->currentNrOfGoods; i++) {
+		if (stock[i] != nullptr) {
+			std::cout << "Destroying Goods" << std::endl;
+			delete stock[i];
+			stock[i] = nullptr; 
+		}
 	}
+
+	// Free arrays
 	delete[] stock;
+	delete[] foodStock;
+	delete[] bulkStock;
 	std::cout << "\nstock ptr deleted" << std::endl;
-	
 }
+
 
 //----->ADD_GOODS<-----
 

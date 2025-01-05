@@ -13,7 +13,8 @@ StorageSystem::StorageSystem() : containerCount(0) {
 StorageSystem::~StorageSystem() {
     // Radera alla containrar när StorageSystem förstörs
     for (int i = 0; i < containerCount; i++) {
-        delete containers[i];
+        std::cout << "Destroying Container" << std::endl;
+        delete this->containers[i];
     }
 }
 

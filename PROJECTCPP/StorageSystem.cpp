@@ -14,13 +14,12 @@ StorageSystem::~StorageSystem() {
     // Radera alla containrar när StorageSystem förstörs
     for (int i = 0; i < containerCount; i++) {
         std::cout << "Destroying Container" << std::endl;
-        delete this->containers[i];
     }
 }
 
 bool StorageSystem::addContainer(double maxWeight) {
     if (containerCount < 10) {
-        containers[containerCount] = new Container(maxWeight);
+        containers[containerCount] = std::make_unique<Container>(maxWeight);
         containerCount++;
         return true;
     }
@@ -28,15 +27,22 @@ bool StorageSystem::addContainer(double maxWeight) {
     return false;
 }
 
-bool StorageSystem::addGoods(Goods* goods) {
+bool StorageSystem::addGoods(std::unique_ptr<Goods> goods) {
     bool added = false;
 
     // Försök att lägga till varan i en passande container
     for (int i = 0; i < containerCount; i++) {
-        if (containers[i]->canAddGoods(goods->getWeight())) {
-            containers[i]->addItem(goods);  // Lägg till varan i containern
+        bool isFirstItemBulk = dynamic_cast<Bulk*>(containers[i]->getItem(0));
+
+        if (isFirstItemBulk && dynamic_cast<Bulk*>(goods.get())) {
+            containers[i]->addItem(std::move(goods));
             added = true;
-            break;  // När varan har lagts till, avsluta loopen
+            break;
+        }
+        else if (!isFirstItemBulk && dynamic_cast<Food*>(goods.get())) {
+            containers[i]->addItem(std::move(goods));
+            added = true;
+            break;
         }
     }
 
@@ -44,7 +50,7 @@ bool StorageSystem::addGoods(Goods* goods) {
     if (!added) {
         if (containerCount < 10) {
             addContainer(100.0);  // Skapa en ny container med maxvikt 100.0
-            containers[containerCount - 1]->addItem(goods);  // Lägg till varan i den nya containern
+            containers[containerCount - 1]->addItem(std::move(goods));  // Lägg till varan i den nya containern
             added = true;
         }
         else {

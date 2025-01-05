@@ -3,13 +3,14 @@
 #include "Bulk.h"
 #include "Food.h"
 #include <iostream>
+#include <memory>  // För att använda std::unique_ptr
 
 MenuSystem::MenuSystem() {
-    storageSystem = new StorageSystem();  // Skapa ett objekt av StorageSystem
+    storageSystem = std::make_unique<StorageSystem>();  // Använd std::make_unique för att skapa ett StorageSystem
 }
 
 MenuSystem::~MenuSystem() {
-    delete storageSystem;  // Radera objektet för StorageSystem
+    // Vi behöver inte längre radera storageSystem manuellt eftersom det hanteras av unique_ptr
 }
 
 void MenuSystem::menuSystemStart() {
@@ -97,12 +98,12 @@ void MenuSystem::addBulkToContainer() {
     std::cout << "Enter Bulk volume: ";
     std::cin >> volume;
 
-    // Skapa ett Bulk objekt
-    Bulk* bulkItem = new Bulk(volume, weight, name);
-    goodsHandler.addGoods(bulkItem);  // Lägger till i GoodsHandler
+    // Skapa ett Bulk objekt med std::make_unique
+    auto bulkItem = std::make_unique<Bulk>(volume, weight, name);
+    goodsHandler.addGoods(bulkItem.get());  // Lägg till varan i GoodsHandler (använd get() för att få en rå pekare)
 
-    // Lägg direkt till Bulk i en container
-    if (storageSystem->addGoods(bulkItem)) {
+    // Lägg direkt till Bulk i en container genom att flytta ägandeskapet
+    if (storageSystem->addGoods(std::move(bulkItem))) {
         std::cout << "Bulk item added to container." << std::endl;
     }
     else {
@@ -123,15 +124,14 @@ void MenuSystem::addFoodToContainer() {
     std::cout << "Enter Food quantity: ";
     std::cin >> quantity;
 
-    // Skapa ett Food objekt
-    Food* foodItem = new Food(weight, quantity, name);
+    // Skapa ett Food objekt med std::make_unique
+    auto foodItem = std::make_unique<Food>(weight, quantity, name);
 
-    // Lägg direkt till Food i en container
-    if (storageSystem->addGoods(foodItem)) {
+    // Lägg direkt till Food i en container genom att flytta ägandeskapet
+    if (storageSystem->addGoods(std::move(foodItem))) {
         std::cout << "Food item added to container." << std::endl;
     }
     else {
         std::cout << "Failed to add Food item to container." << std::endl;
     }
 }
-

@@ -37,6 +37,7 @@
     <ClInclude Include="GoodsHandler.h" />
     <ClInclude Include="MenuSystem.h" />
     <ClInclude Include="StorageSystem.h" />
+    <ClInclude Include="TILLFÄLLIG_H_FIL.h" />
     <ClInclude Include="WelcomePage.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

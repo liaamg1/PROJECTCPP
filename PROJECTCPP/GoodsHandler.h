@@ -24,6 +24,7 @@ public:
 	void showFood() const;             // Visa endast Food-objekt
 	void showBulk() const;             // Visa endast Bulk-objekt
 	void operator=(const GoodsHandler& other);
+	bool isValidName(const std::string& name) const;
 
 };
 #endif // !GOODS_HANDLER_H

@@ -1,17 +1,30 @@
-#pragma once
+#ifndef STORAGE_SYSTEM_H
+#define STORAGE_SYSTEM_H
+
+#include <memory>  // För att använda std::unique_ptr
+#include <iostream>
 #include "Container.h"
 #include "Goods.h"
 
 class StorageSystem {
-private:
-    Container* containers[10];  // Förvara upp till 10 containrar
-    int containerCount;
-
 public:
+    // Konstruktor och Destruktor
     StorageSystem();
     ~StorageSystem();
 
-    bool addContainer(double maxWeight);  // Skapa en ny container
-    void showAllContainers() const;      // Visa alla containrar
-    bool addGoods(Goods* goods);         // Lägg till varor i containrar
+    // Lägg till en ny container
+    bool addContainer(double maxWeight);
+
+    // Lägg till varor i containrar
+    bool addGoods(std::unique_ptr<Goods> goods);
+
+    // Visa alla containrar och deras innehåll
+    void showAllContainers() const;
+
+private:
+    static const int MAX_CONTAINERS = 10;  // Max antal containrar
+    std::unique_ptr<Container> containers[MAX_CONTAINERS];  // En array av unika containrar
+    int containerCount;  // Håller reda på antalet containrar
 };
+
+#endif  // STORAGE_SYSTEM_H

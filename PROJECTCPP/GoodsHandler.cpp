@@ -28,23 +28,24 @@ currentNrOfBulk(0), currentNrOfFood(0), foodStock(new Goods* [20] {nullptr})
 		}
 	}
 }
+bool GoodsHandler::isValidName(const std::string& name) const {
 
+	for (char c : name) {
+		if (!isalpha(c) && c != ' ') {  // Tillåter bara bokstäver och mellanslag
+			return false;
+		}
+	}
+	return true;
+}
 //----->Destructor<-----
 
 GoodsHandler::~GoodsHandler() {
 	// Deleting objects in foodStock and bulkStock
-	for (int i = 0; i < this->currentNrOfGoods; i++) {
-		if (stock[i] != nullptr) {
-			std::cout << "Destroying Goods" << std::endl;
-			delete stock[i];
-			stock[i] = nullptr; 
-		}
-	}
-
-	// Free arrays
-	delete[] stock;
 	delete[] foodStock;
 	delete[] bulkStock;
+	delete[] stock;
+
+
 	std::cout << "\nstock ptr deleted" << std::endl;
 }
 
@@ -53,12 +54,18 @@ GoodsHandler::~GoodsHandler() {
 
 bool GoodsHandler::addGoods(Goods* aGoods)
 {
-	// Add to mixed array (stock)
+	// Kontrollera om namnet på objektet är giltigt innan vi lägger till det i stock
+	if (aGoods != nullptr && !isValidName(aGoods->getName())) {
+		std::cout << "Invalid name for item. Cannot add to stock." << std::endl;
+		return false; // Vi returnerar false om namnet inte är giltigt
+	}
+
+	// Lägg till objektet i stock om det har ett giltigt namn
 	if (this->currentNrOfGoods < 20) {
 		stock[this->currentNrOfGoods] = aGoods;
 		this->currentNrOfGoods++;
 
-		// Check if food or bulk and add to correct array
+		// Kontrollera om det är en Food eller Bulk och lägg till i rätt array
 		Food* foodPtr = dynamic_cast<Food*>(aGoods);
 		if (foodPtr != nullptr) {
 			if (this->currentNrOfFood < 20) {
@@ -76,11 +83,12 @@ bool GoodsHandler::addGoods(Goods* aGoods)
 			}
 		}
 
-		return true; // If success
+		return true; // Om objektet lades till korrekt
 	}
 
-	return false; // If arrays are full
+	return false; // Om arrayen är full
 }
+
 
 //----->SHOW_GOODS<-----
 

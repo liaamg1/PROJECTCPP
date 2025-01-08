@@ -12,6 +12,6 @@ public:
 	~Bulk();
 	void setVolume(float volume);
 	float getVolume() const;
-	std::string toString() const;
+	std::string toString() const override;
 };
 #endif // !BULK_H

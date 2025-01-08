@@ -10,4 +10,4 @@
 //Egendefinerad rimlig generisk klass som används på ett relevant sätt : 2 poäng
 //Relevant användande av funktionspekare : 1 poäng
 //Relevant användande av Lamdautryck : 1 poäng
-//Läsning från och/eller skrivning till textfiler
+//Läsning från och/eller skrivning till textfiler - på gång

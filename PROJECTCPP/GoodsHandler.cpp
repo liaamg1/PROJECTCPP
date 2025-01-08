@@ -80,6 +80,10 @@ void GoodsHandler::readFromFile(std::vector<Goods**> entryAndExitStock, const st
 
 GoodsHandler::~GoodsHandler() {
 	// Deleting objects in foodStock and bulkStock
+	for (int i = 0; i < currentNrOfGoods; i++)
+	{
+		delete this->stock[i];
+	}
 	delete[] foodStock;
 	delete[] bulkStock;
 	delete[] stock;

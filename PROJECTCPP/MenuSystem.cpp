@@ -24,6 +24,8 @@ void MenuSystem::menuSystemStart() {
         std::cout << "Enter 2) Food options" << std::endl;
         std::cout << "Enter 3) Show all containers" << std::endl;
         std::cout << "Enter 4) Show totals (weight, volume, quantity)" << std::endl;
+        std::cout << "Enter 5) Show all Goods" << std::endl;
+
         std::cout << "Enter q) Quit" << std::endl;
         std::cout << ">> ";
         std::cin >> input;
@@ -85,6 +87,10 @@ void MenuSystem::menuSystemStart() {
             // Show totals
             goodsHandler.showTotals();
         }
+        else if (input == '5') {
+            // Show totals
+            goodsHandler.showAll();
+        }
         else if (input == 'q') {
             stop = true;
         }
@@ -130,7 +136,7 @@ void MenuSystem::addFoodToContainer() {
     std::cin >> quantity;
 
     // Skapa ett Food objekt med std::make_unique
-    auto foodItem = std::make_unique<Food>(weight, quantity, name);
+    auto foodItem = std::make_unique<Food>(quantity, weight, name);
 
     // Lägg direkt till Food i en container genom att flytta ägandeskapet
     if (storageSystem->addGoods(std::move(foodItem))) {

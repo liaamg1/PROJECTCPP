@@ -24,6 +24,6 @@ public:
 	void setWeight(float weight);
 	void setName(std::string name);
 
-	virtual std::string toString() const;
+	virtual std::string toString() const = 0;
 };
 #endif // !GOODS_H

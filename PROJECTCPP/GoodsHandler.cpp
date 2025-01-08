@@ -199,15 +199,46 @@ bool GoodsHandler::addGoods(Goods* aGoods)
 
 //----->SHOW_GOODS<-----
 
-void GoodsHandler::showAll() const
-{
-	for (int i = 0; i < this->currentNrOfGoods; i++)
-	{
+void GoodsHandler::showAll() const {
+	// Skapa en temporär array för alla varor (både mat och bulk)
+	Goods** allGoods = new Goods * [this->currentNrOfGoods];  // Dynamisk array
+
+	int index = 0;
+
+	// Lägg till alla foodStock
+	for (int i = 0; i < this->currentNrOfFood; i++) {
 		if (foodStock[i] != nullptr) {
-			std::cout << this->stock[i]->toString() << std::endl;
+			allGoods[index++] = foodStock[i];
 		}
 	}
+
+	// Lägg till alla bulkStock
+	for (int i = 0; i < this->currentNrOfBulk; i++) {
+		if (bulkStock[i] != nullptr) {
+			allGoods[index++] = bulkStock[i];
+		}
+	}
+
+	// Sortera objekt efter vikt
+	std::sort(allGoods, allGoods + index, [](Goods* a, Goods* b) {
+		return a->getWeight() >
+			b->getWeight();  // Jämför vikten
+		});
+
+	// Skriv ut de sorterade objekten
+	std::cout << "Showing all goods (sorted by weight):" << std::endl;
+	for (int i = 0; i < index; i++) {
+		if (allGoods[i] != nullptr) {
+			std::cout << allGoods[i]->toString() << std::endl;
+		}
+	}
+
+	// Frigör minnet för den temporära arrayen
+	delete[] allGoods;
 }
+
+
+
 void GoodsHandler::showFood() const
 {
 	std::cout << "\nShowing food items:\n";

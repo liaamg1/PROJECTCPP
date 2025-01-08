@@ -37,6 +37,45 @@ bool GoodsHandler::isValidName(const std::string& name) const {
 	}
 	return true;
 }
+void GoodsHandler::readFromFile(std::vector<Goods**> entryAndExitStock, const std::string& filename)
+{
+	int quantity;
+	float weight;
+	std::string name;
+	float volume;
+	std::ifstream InStream;
+	InStream.open(filename);
+	if (InStream.is_open()) {
+		if (filename == "StoredFood.txt")
+		{
+			while (true) {
+				InStream >> quantity;
+				InStream >> weight;
+				InStream >> name;
+				if (name == " ")
+				{
+					break;
+				}
+				entryAndExitStock.push_back(new Food(quantity, weight, name));
+			}
+		}
+		if (filename == "StoredBulk.txt")
+		{
+			while (true)
+			{
+				InStream >> volume;
+				InStream >> weight;
+				InStream >> name;
+				if (name == " ")
+				{
+					break;
+				}
+				entryAndExitStock.push_back(new Bulk(quantity, weight, name));
+			}
+		}
+	}
+
+}
 //----->Destructor<-----
 
 GoodsHandler::~GoodsHandler() {
@@ -52,7 +91,6 @@ GoodsHandler::~GoodsHandler() {
 
 	std::cout << "\nstock ptr deleted" << std::endl;
 }
-
 
 //----->ADD_GOODS<-----
 

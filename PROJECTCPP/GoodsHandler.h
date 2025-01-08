@@ -3,6 +3,7 @@
 #include "Goods.h"
 #include <vector>
 #include <fstream>
+#include <algorithm>
 class GoodsHandler
 {
 private:

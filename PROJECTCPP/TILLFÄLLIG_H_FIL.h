@@ -8,6 +8,6 @@
 
 //---------------KVAR ATT FIXA------------------------
 //Egendefinerad rimlig generisk klass som används på ett relevant sätt : 2 poäng
-//Relevant användande av funktionspekare : 1 poäng
-//Relevant användande av Lamdautryck : 1 poäng
-//Läsning från och/eller skrivning till textfiler - på gång
+//Relevant användande av funktionspekare : 1 poäng - FIXAT TROLIGTVIS
+//Relevant användande av Lamdautryck : 1 poäng - på gång
+//Läsning från och/eller skrivning till textfiler VIKTIG KRAV - på gång

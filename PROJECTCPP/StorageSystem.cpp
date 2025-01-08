@@ -57,12 +57,7 @@ bool StorageSystem::addGoods(std::unique_ptr<Goods> goods) {
     if (!added) {
         if (containerCount < 10) {
             // Skapa en ny container baserat på varans typ (Bulk eller Food)
-            if (dynamic_cast<Bulk*>(goods.get())) {
-                addContainer(100.0);  // Skapa en container för Bulk med en maxvikt
-            }
-            else {
-                addContainer(50.0);  // Skapa en container för Food med en annan maxvikt
-            }
+            addContainer(100.0);
             containers[containerCount - 1]->addItem(std::move(goods));  // Lägg till varan i den nya containern
             added = true;
         }

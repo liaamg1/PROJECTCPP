@@ -23,6 +23,7 @@ void MenuSystem::menuSystemStart() {
         std::cout << "Enter 1) Bulk options" << std::endl;
         std::cout << "Enter 2) Food options" << std::endl;
         std::cout << "Enter 3) Show all containers" << std::endl;
+        std::cout << "Enter 4) Show totals (weight, volume, quantity)" << std::endl;
         std::cout << "Enter q) Quit" << std::endl;
         std::cout << ">> ";
         std::cin >> input;
@@ -79,6 +80,10 @@ void MenuSystem::menuSystemStart() {
         else if (input == '3') {
             // Show all containers
             storageSystem->showAllContainers();
+        }
+        else if (input == '4') {
+            // Show totals
+            goodsHandler.showTotals();
         }
         else if (input == 'q') {
             stop = true;

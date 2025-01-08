@@ -223,3 +223,56 @@ void GoodsHandler::operator=(const GoodsHandler& other)
 		}
 	}
 }
+// Funktionspekare för beräkningar
+double sumWeight(const Goods* goods) {
+	return goods->getWeight(); // Vikt * Kvantitet
+}
+
+double sumVolume(const Goods* goods) {
+	const Bulk* bulkPtr = dynamic_cast<const Bulk*>(goods);
+
+	if (bulkPtr != nullptr) {
+		return bulkPtr->getVolume(); // Volym * Kvantitet
+	}
+	return 0.0f;
+}
+
+int sumQuantity(const Goods* goods) {
+	const Food* foodPtr = dynamic_cast<const Food*>(goods);
+
+	if (foodPtr != nullptr) {
+		return foodPtr->getQuantity(); // Bara kvantitet för Food
+	}
+	return 0;
+}
+// Beräkna totalen (vikt, volym eller kvantitet)
+double GoodsHandler::calculateTotal(double (*calcFunc)(const Goods*)) const {
+	double total = 0.0;
+
+	// Iterera genom alla varor och använd funktionspekaren
+	for (int i = 0; i < currentNrOfGoods; i++) {
+		if (stock[i] != nullptr) {
+			total += calcFunc(stock[i]); // Anropa funktionspekaren
+		}
+	}
+
+	return total;
+}
+void GoodsHandler::showTotals() const {
+
+	double totalWeight = calculateTotal(sumWeight);
+	std::cout << "Total weight: " << totalWeight << std::endl;
+
+
+	double totalVolume = calculateTotal(sumVolume);
+	std::cout << "Total volume: " << totalVolume << std::endl;
+
+
+	int totalQuantity = 0;
+	for (int i = 0; i < currentNrOfGoods; i++) {
+		if (stock[i] != nullptr) {
+			totalQuantity += sumQuantity(stock[i]);
+		}
+	}
+	std::cout << "Total quantity: " << totalQuantity << std::endl;
+}

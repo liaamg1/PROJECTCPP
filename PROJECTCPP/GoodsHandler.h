@@ -21,7 +21,8 @@ public:
 	GoodsHandler();
 	GoodsHandler(const GoodsHandler& other);
 	~GoodsHandler();
-
+	void showTotals() const;
+	double calculateTotal(double (*calcFunc)(const Goods*)) const;
 	bool addGoods(Goods* aGoods);
 	     // Lägga till i Bulk-arrayen
 	void showAll() const;

@@ -47,36 +47,20 @@ void GoodsHandler::readFromFile(const std::string& filename)
 	std::ifstream InStream;
 	InStream.open(filename);
 	if (InStream.is_open()) {
-		if (filename == "StoredFood.txt")
-		{
-			while (true) 
-			{
-				InStream >> quantity;
-				InStream >> weight;
-				InStream >> name;
-				if (name == " ")
-				{
-					break;
-				}
-				this->currentNrOfFood;
-				this->currentNrOfGoods;
+		if (filename == "StoredFood.txt") {
+			while (InStream >> quantity >> weight >> name) {
+				// Skapa nytt Food-objekt med den inlästa datan
 				entryAndExitStock.push_back(new Food(quantity, weight, name));
+				this->currentNrOfFood++;
+				this->currentNrOfGoods++;
 			}
 		}
-		else if (filename == "StoredBulk.txt")
-		{
-			while (true)
-			{
-				InStream >> volume;
-				InStream >> weight;
-				InStream >> name;
-				if (name == " ")
-				{
-					break;
-				}
-				this->currentNrOfBulk;
-				this->currentNrOfGoods;
+		else if (filename == "StoredBulk.txt") {
+			while (InStream >> volume >> weight >> name) {
+				// Skapa nytt Bulk-objekt med den inlästa datan
 				entryAndExitStock.push_back(new Bulk(volume, weight, name));
+				this->currentNrOfBulk++;
+				this->currentNrOfGoods++;
 			}
 		}
 	}

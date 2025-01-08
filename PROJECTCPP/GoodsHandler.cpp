@@ -49,7 +49,8 @@ void GoodsHandler::readFromFile(const std::string& filename)
 	if (InStream.is_open()) {
 		if (filename == "StoredFood.txt")
 		{
-			while (true) {
+			while (true) 
+			{
 				InStream >> quantity;
 				InStream >> weight;
 				InStream >> name;
@@ -80,7 +81,7 @@ void GoodsHandler::readFromFile(const std::string& filename)
 		}
 	}
 	InStream.close();
-	if (currentNrOfGoods <= 100)
+	if (currentNrOfGoods < 100)
 	{
 		for (int i = 0; i < this->currentNrOfGoods; i++)
 		{
@@ -103,17 +104,51 @@ void GoodsHandler::readFromFile(const std::string& filename)
 	}
 	else
 	{
-		std::cout << "Error, File exceeds 100" << std::endl;
+		std::cout << "Error; File exceeds 100" << std::endl;
 	}
+}
+
+//-----> Output into text file and sorting <-----
+
+void GoodsHandler::addToFile()
+{
+	std::ofstream OutStreamFood;
+	std::ofstream OutStreamBulk;
+	OutStreamBulk.open("StoredBulk.txt");
+	OutStreamFood.open("StoredFood.txt");
+	if (OutStreamFood.is_open() || OutStreamBulk.is_open())
+	{
+		for (int i = 0; i < this->currentNrOfFood; i++)
+		{
+			Food* fPtr = dynamic_cast<Food*>(stock[i]);
+			if (fPtr != nullptr)
+			{
+				OutStreamFood << std::to_string(fPtr->getQuantity()) + "\n";
+				OutStreamFood << std::to_string(fPtr->getWeight()) + "\n";
+				OutStreamFood << fPtr->getName() + "\n";
+			}
+			else {
+				Bulk* bPtr = dynamic_cast<Bulk*>(stock[i]);
+				if (bPtr != nullptr)
+				{
+					OutStreamBulk << std::to_string(bPtr->getVolume()) + "\n";
+					OutStreamBulk << std::to_string(bPtr->getWeight()) + "\n";
+					OutStreamBulk << bPtr->getName() + "\n";
+				}
+			}
+		}
+	}
+	OutStreamFood.close();
+	OutStreamBulk.close();
+	
+
+
+
 }
 //----->Destructor<-----
 
 GoodsHandler::~GoodsHandler() {
 	// Deleting objects in foodStock and bulkStock
-	for (int i = 0; i < currentNrOfGoods; i++)
-	{
-		delete this->stock[i];
-	}
 	delete[] foodStock;
 	delete[] bulkStock;
 	delete[] stock;

@@ -3,7 +3,6 @@
 #include "Goods.h"
 #include <vector>
 #include <fstream>
-
 class GoodsHandler
 {
 private:
@@ -30,5 +29,6 @@ public:
 	void operator=(const GoodsHandler& other);
 	bool isValidName(const std::string& name) const;
 	void readFromFile(const std::string& filename);
+	void addToFile();
 };
 #endif // !GOODS_HANDLER_H

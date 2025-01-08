@@ -2,13 +2,13 @@
 #include "Bulk.h"
 #include "Food.h"
 
-GoodsHandler::GoodsHandler() : stock(new Goods* [20] {nullptr}), currentNrOfGoods(0), 
-currentNrOfFood(0), currentNrOfBulk(0), foodStock(new Goods* [20] {nullptr}), bulkStock(new Goods* [20] {nullptr})
+GoodsHandler::GoodsHandler() : stock(new Goods* [100] {nullptr}), currentNrOfGoods(0), 
+currentNrOfFood(0), currentNrOfBulk(0), foodStock(new Goods* [100] {nullptr}), bulkStock(new Goods* [100] {nullptr})
 {
 }
 
-GoodsHandler::GoodsHandler(const GoodsHandler& other) : stock(new Goods* [20] {nullptr}), currentNrOfGoods(other.currentNrOfGoods), bulkStock(new Goods* [20] {nullptr}),
-currentNrOfBulk(0), currentNrOfFood(0), foodStock(new Goods* [20] {nullptr})
+GoodsHandler::GoodsHandler(const GoodsHandler& other) : stock(new Goods* [100] {nullptr}), currentNrOfGoods(other.currentNrOfGoods), bulkStock(new Goods* [100] {nullptr}),
+currentNrOfBulk(0), currentNrOfFood(0), foodStock(new Goods* [100] {nullptr})
 {
 	for (int i = 0; i < this->currentNrOfGoods; i++)
 	{
@@ -37,8 +37,9 @@ bool GoodsHandler::isValidName(const std::string& name) const {
 	}
 	return true;
 }
-void GoodsHandler::readFromFile(std::vector<Goods**> entryAndExitStock, const std::string& filename)
+void GoodsHandler::readFromFile(const std::string& filename)
 {
+	std::vector<Goods*> entryAndExitStock;
 	int quantity;
 	float weight;
 	std::string name;
@@ -56,10 +57,12 @@ void GoodsHandler::readFromFile(std::vector<Goods**> entryAndExitStock, const st
 				{
 					break;
 				}
+				this->currentNrOfFood;
+				this->currentNrOfGoods;
 				entryAndExitStock.push_back(new Food(quantity, weight, name));
 			}
 		}
-		if (filename == "StoredBulk.txt")
+		else if (filename == "StoredBulk.txt")
 		{
 			while (true)
 			{
@@ -70,11 +73,38 @@ void GoodsHandler::readFromFile(std::vector<Goods**> entryAndExitStock, const st
 				{
 					break;
 				}
-				entryAndExitStock.push_back(new Bulk(quantity, weight, name));
+				this->currentNrOfBulk;
+				this->currentNrOfGoods;
+				entryAndExitStock.push_back(new Bulk(volume, weight, name));
 			}
 		}
 	}
-
+	InStream.close();
+	if (currentNrOfGoods <= 100)
+	{
+		for (int i = 0; i < this->currentNrOfGoods; i++)
+		{
+			this->stock[i] = entryAndExitStock[i];
+		}
+		if (filename == "StoredFood.txt")
+		{
+			for (int i = 0; i < this->currentNrOfFood; i++)
+			{
+				this->foodStock[i] = entryAndExitStock[i];
+			}
+		}
+		else if (filename == "StoredBulk.txt")
+		{
+			for (int i = 0; i < this->currentNrOfBulk; i++)
+			{
+				this->bulkStock[i] = entryAndExitStock[i];
+			}
+		}
+	}
+	else
+	{
+		std::cout << "Error, File exceeds 100" << std::endl;
+	}
 }
 //----->Destructor<-----
 
@@ -103,14 +133,14 @@ bool GoodsHandler::addGoods(Goods* aGoods)
 	}
 
 	// Lägg till objektet i stock om det har ett giltigt namn
-	if (this->currentNrOfGoods < 20) {
+	if (this->currentNrOfGoods < 100) {
 		stock[this->currentNrOfGoods] = aGoods;
 		this->currentNrOfGoods++;
 
 		// Kontrollera om det är en Food eller Bulk och lägg till i rätt array
 		Food* foodPtr = dynamic_cast<Food*>(aGoods);
 		if (foodPtr != nullptr) {
-			if (this->currentNrOfFood < 20) {
+			if (this->currentNrOfFood < 100) {
 				foodStock[this->currentNrOfFood] = aGoods;
 				this->currentNrOfFood++;
 			}
@@ -118,7 +148,7 @@ bool GoodsHandler::addGoods(Goods* aGoods)
 		else {
 			Bulk* bulkPtr = dynamic_cast<Bulk*>(aGoods);
 			if (bulkPtr != nullptr) {
-				if (this->currentNrOfBulk < 20) {
+				if (this->currentNrOfBulk < 100) {
 					bulkStock[this->currentNrOfBulk] = aGoods;
 					this->currentNrOfBulk++;
 				}
@@ -162,6 +192,7 @@ void GoodsHandler::showBulk() const
 		}
 	}
 }
+
 //----->Operator<-----
 
 void GoodsHandler::operator=(const GoodsHandler& other)

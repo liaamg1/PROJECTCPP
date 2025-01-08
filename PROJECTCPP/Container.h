@@ -37,7 +37,7 @@ private:
     double maxWeight;
     double currentWeight;
     int itemCount;
-    std::unique_ptr<Goods> items[10];
+    std::unique_ptr<Goods> items[100];
     bool isFirstItem;  // Flagga som håller koll på om vi har lagt till en vara och vad typen är
     bool isFoodType;   // Bestämmer om containern är för Food eller Bulk
 };

@@ -41,6 +41,10 @@ bool GoodsHandler::isValidName(const std::string& name) const {
 
 GoodsHandler::~GoodsHandler() {
 	// Deleting objects in foodStock and bulkStock
+	for (int i = 0; i < currentNrOfGoods; i++)
+	{
+		delete this->stock[i];
+	}
 	delete[] foodStock;
 	delete[] bulkStock;
 	delete[] stock;

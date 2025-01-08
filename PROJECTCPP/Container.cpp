@@ -31,7 +31,7 @@ void Container::addItem(std::unique_ptr<Goods> goods) {
         else {
             // Om den första varan är av typ Bulk
             bool isFirstItemBulk = dynamic_cast<Bulk*>(items[0].get()) != nullptr;
-
+            Bulk* bulkPtr = dynamic_cast<Bulk*>(items[0].get());
             // Om den första varan är en Bulk, acceptera bara Bulk-varor
             if (isFirstItemBulk && dynamic_cast<Bulk*>(goods.get())) {
                 if (canAddGoods(goods->getWeight()) && itemCount < 10) {

@@ -39,67 +39,48 @@ bool GoodsHandler::isValidName(const std::string& name) const {
 
 void GoodsHandler::readFromFile(const std::string& filename)
 {
-	std::vector<Goods*> entryAndExitStock;
 	int quantity;
 	float weight;
 	std::string name;
 	float volume;
 	std::ifstream InStream;
+
+	// Öppnar filen
 	InStream.open(filename);
 	if (InStream.is_open()) {
+		// Läs in data baserat på filen
 		if (filename == "StoredFood.txt") {
 			while (InStream >> quantity >> weight >> name) {
-
-				entryAndExitStock.push_back(new Food(quantity, weight, name));
-				this->currentNrOfFood++;
-				this->currentNrOfGoods++;
+				if (currentNrOfFood < 100) {  // Kontrollera om det finns plats för fler food-objekt
+					foodStock[currentNrOfFood] = new Food(quantity, weight, name);
+					stock[currentNrOfGoods] = foodStock[currentNrOfFood];  // Lägg till i huvudlagret
+					currentNrOfFood++;
+					currentNrOfGoods++;
+				}
+				else {
+					std::cout << "Error: Food stock is full. Cannot add more items." << std::endl;
+					break;
+				}
 			}
 		}
 		else if (filename == "StoredBulk.txt") {
 			while (InStream >> volume >> weight >> name) {
-				
-				entryAndExitStock.push_back(new Bulk(volume, weight, name));
-				this->currentNrOfBulk++;
-				this->currentNrOfGoods++;
+				if (currentNrOfBulk < 100) {  // Kontrollera om det finns plats för fler bulk-objekt
+					bulkStock[currentNrOfBulk] = new Bulk(volume, weight, name);
+					stock[currentNrOfGoods] = bulkStock[currentNrOfBulk];  // Lägg till i huvudlagret
+					currentNrOfBulk++;
+					currentNrOfGoods++;
+				}
+				else {
+					std::cout << "Error: Bulk stock is full. Cannot add more items." << std::endl;
+					break;
+				}
 			}
 		}
 	}
 	InStream.close();
-	if (currentNrOfGoods < 100)
-	{
-		for (int i = 0; i < this->currentNrOfGoods; i++)
-		{
-			if (this->stock[i] == nullptr)
-			{
-				this->stock[i] = entryAndExitStock[i];
-			}
-		}
-		if (filename == "StoredFood.txt")
-		{
-			for (int i = 0; i < this->currentNrOfFood; i++)
-			{
-				if (this->foodStock[i] == nullptr)
-				{
-					this->foodStock[i] = entryAndExitStock[i];
-				}
-			}
-		}
-		else if (filename == "StoredBulk.txt")
-		{
-			for (int i = 0; i < this->currentNrOfBulk; i++)
-			{
-				if (this->bulkStock[i] == nullptr)
-				{
-					this->bulkStock[i] = entryAndExitStock[i];
-				}
-			}
-		}
-	}
-	else
-	{
-		std::cout << "Error; File exceeds 100" << std::endl;
-	}
 }
+
 
 //-----> Output into text file <-----
 
@@ -143,20 +124,19 @@ void GoodsHandler::cleanseFileFromCurrentContents(const std::string& filename)
 	cleanseFile.open(filename, std::ofstream::out | std::ofstream::trunc);
 	cleanseFile.close();
 }
-int GoodsHandler::getCurrentnrOfGoods()
+int GoodsHandler::getCurrentNrOfGoods()
 {
 	return this->currentNrOfGoods;
 }
-int GoodsHandler::getCurrentNrOfBulk()
+Goods* GoodsHandler::getCurrentIndex(int index)
 {
-	return this->currentNrOfBulk;
+	Goods* ptr = nullptr;
+	if (index < currentNrOfGoods)
+	{
+		ptr = this->stock[index];
+	}
+	return ptr;
 }
-
-Goods* GoodsHandler::getBulksAt(int index)
-{
-	return this->bulkStock[index];
-}
-
 //----->Destructor<-----
 
 GoodsHandler::~GoodsHandler() {
@@ -169,6 +149,9 @@ GoodsHandler::~GoodsHandler() {
 
 	std::cout << "\nstock ptr deleted" << std::endl;
 }
+
+
+
 
 //----->ADD_GOODS<-----
 
@@ -200,8 +183,10 @@ bool GoodsHandler::addGoods(Goods* aGoods)
 				}
 			}
 		}
+
 		return true;
 	}
+
 	return false;
 }
 

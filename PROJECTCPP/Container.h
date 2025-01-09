@@ -9,7 +9,7 @@
 
 #include "Food.h"
 #include "Bulk.h"
-#include "InvalidNameHelper.h"
+#include "InvalidNameException.h"
 //KOLLA HUR VI SKA GÖRA MED DENNA
 
 class Container {

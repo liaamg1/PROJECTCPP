@@ -1,11 +1,11 @@
-#ifndef INVALID_NAME_HELPER_H
-#define INVALID_NAME_HELPER_H
+#ifndef INVALID_NAME_EXCEPTION_H
+#define INVALID_NAME_EXCEPTION_H
 
 #include <exception>
 #include <string>
 #include <cctype>  // För isalpha()
 
-class InvalidNameHelper : public std::exception {
+class InvalidNameException : public std::exception {
 public:
     // Återger ett felmeddelande om ogiltigt namn
     const char* what() const noexcept override {

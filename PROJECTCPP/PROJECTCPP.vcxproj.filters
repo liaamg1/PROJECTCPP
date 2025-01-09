@@ -71,7 +71,7 @@
     <ClInclude Include="TILLFÄLLIG_H_FIL.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="InvalidNameHelper.h">
+    <ClInclude Include="InvalidNameException.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

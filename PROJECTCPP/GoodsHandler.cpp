@@ -35,6 +35,8 @@ bool GoodsHandler::isValidName(const std::string& name) const {
 	}
 	return true;
 }
+// -----> Input into Goods constructor from file <-----
+
 void GoodsHandler::readFromFile(const std::string& filename)
 {
 	std::vector<Goods*> entryAndExitStock;
@@ -99,7 +101,7 @@ void GoodsHandler::readFromFile(const std::string& filename)
 	}
 }
 
-//-----> Output into text file and sorting <-----
+//-----> Output into text file <-----
 
 void GoodsHandler::addToFile()
 {
@@ -131,6 +133,15 @@ void GoodsHandler::addToFile()
 	}
 	OutStreamFood.close();
 	OutStreamBulk.close();
+}
+
+//----->Removes Current Contents In File<-----
+
+void GoodsHandler::cleanseFileFromCurrentContents(const std::string& filename)
+{
+	std::ofstream cleanseFile;
+	cleanseFile.open(filename, std::ofstream::out | std::ofstream::trunc);
+	cleanseFile.close();
 }
 //----->Destructor<-----
 
@@ -182,7 +193,6 @@ bool GoodsHandler::addGoods(Goods* aGoods)
 	return false;
 }
 
-
 //----->SHOW_GOODS<-----
 
 void GoodsHandler::showAll() const {
@@ -215,7 +225,6 @@ void GoodsHandler::showAll() const {
 			std::cout << allGoods[i]->toString() << std::endl;
 		}
 	}
-
 	delete[] allGoods;
 }
 

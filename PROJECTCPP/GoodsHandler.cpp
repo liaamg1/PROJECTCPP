@@ -49,7 +49,7 @@ void GoodsHandler::readFromFile(const std::string& filename)
 	if (InStream.is_open()) {
 		if (filename == "StoredFood.txt") {
 			while (InStream >> quantity >> weight >> name) {
-				// Skapa nytt Food-objekt med den inlästa datan
+
 				entryAndExitStock.push_back(new Food(quantity, weight, name));
 				this->currentNrOfFood++;
 				this->currentNrOfGoods++;
@@ -57,7 +57,7 @@ void GoodsHandler::readFromFile(const std::string& filename)
 		}
 		else if (filename == "StoredBulk.txt") {
 			while (InStream >> volume >> weight >> name) {
-				// Skapa nytt Bulk-objekt med den inlästa datan
+				
 				entryAndExitStock.push_back(new Bulk(volume, weight, name));
 				this->currentNrOfBulk++;
 				this->currentNrOfGoods++;
@@ -132,7 +132,8 @@ void GoodsHandler::addToFile()
 //----->Destructor<-----
 
 GoodsHandler::~GoodsHandler() {
-	// Deleting objects in foodStock and bulkStock
+	// Deleting arrays
+	//Objects already deleted i smart pointer
 	delete[] foodStock;
 	delete[] bulkStock;
 	delete[] stock;
@@ -145,18 +146,16 @@ GoodsHandler::~GoodsHandler() {
 
 bool GoodsHandler::addGoods(Goods* aGoods)
 {
-	// Kontrollera om namnet på objektet är giltigt innan vi lägger till det i stock
+	
 	if (aGoods != nullptr && !isValidName(aGoods->getName())) {
 		std::cout << "Invalid name for item. Cannot add to stock." << std::endl;
-		return false; // Vi returnerar false om namnet inte är giltigt
+		return false;
 	}
 
-	// Lägg till objektet i stock om det har ett giltigt namn
 	if (this->currentNrOfGoods < 100) {
 		stock[this->currentNrOfGoods] = aGoods;
 		this->currentNrOfGoods++;
 
-		// Kontrollera om det är en Food eller Bulk och lägg till i rätt array
 		Food* foodPtr = dynamic_cast<Food*>(aGoods);
 		if (foodPtr != nullptr) {
 			if (this->currentNrOfFood < 100) {
@@ -174,42 +173,39 @@ bool GoodsHandler::addGoods(Goods* aGoods)
 			}
 		}
 
-		return true; // Om objektet lades till korrekt
+		return true;
 	}
 
-	return false; // Om arrayen är full
+	return false;
 }
 
 
 //----->SHOW_GOODS<-----
 
 void GoodsHandler::showAll() const {
-	// Skapa en temporär array för alla varor (både mat och bulk)
-	Goods** allGoods = new Goods * [this->currentNrOfGoods];  // Dynamisk array
+	Goods** allGoods = new Goods * [this->currentNrOfGoods];  
 
 	int index = 0;
 
-	// Lägg till alla foodStock
+	
 	for (int i = 0; i < this->currentNrOfFood; i++) {
 		if (foodStock[i] != nullptr) {
 			allGoods[index++] = foodStock[i];
 		}
 	}
 
-	// Lägg till alla bulkStock
+	
 	for (int i = 0; i < this->currentNrOfBulk; i++) {
 		if (bulkStock[i] != nullptr) {
 			allGoods[index++] = bulkStock[i];
 		}
 	}
 
-	// Sortera objekt efter vikt
+	// LAMBDA 1P
 	std::sort(allGoods, allGoods + index, [](Goods* a, Goods* b) {
-		return a->getWeight() >
-			b->getWeight();  // Jämför vikten
+		return a->getWeight() > b->getWeight();  // Jämför vikten ** KOLLA ÖVER
 		});
 
-	// Skriv ut de sorterade objekten
 	std::cout << "Showing all goods (sorted by weight):" << std::endl;
 	for (int i = 0; i < index; i++) {
 		if (allGoods[i] != nullptr) {
@@ -217,7 +213,6 @@ void GoodsHandler::showAll() const {
 		}
 	}
 
-	// Frigör minnet för den temporära arrayen
 	delete[] allGoods;
 }
 
@@ -273,16 +268,16 @@ void GoodsHandler::operator=(const GoodsHandler& other)
 		}
 	}
 }
-// Funktionspekare för beräkningar
+// FUNKTIONSPEKARE
 double sumWeight(const Goods* goods) {
-	return goods->getWeight(); // Vikt * Kvantitet
+	return goods->getWeight(); 
 }
 
 double sumVolume(const Goods* goods) {
 	const Bulk* bulkPtr = dynamic_cast<const Bulk*>(goods);
 
 	if (bulkPtr != nullptr) {
-		return bulkPtr->getVolume(); // Volym * Kvantitet
+		return bulkPtr->getVolume(); 
 	}
 	return 0.0f;
 }
@@ -291,18 +286,16 @@ int sumQuantity(const Goods* goods) {
 	const Food* foodPtr = dynamic_cast<const Food*>(goods);
 
 	if (foodPtr != nullptr) {
-		return foodPtr->getQuantity(); // Bara kvantitet för Food
+		return foodPtr->getQuantity(); 
 	}
 	return 0;
 }
-// Beräkna totalen (vikt, volym eller kvantitet)
 double GoodsHandler::calculateTotal(double (*calcFunc)(const Goods*)) const {
 	double total = 0.0;
 
-	// Iterera genom alla varor och använd funktionspekaren
 	for (int i = 0; i < currentNrOfGoods; i++) {
 		if (stock[i] != nullptr) {
-			total += calcFunc(stock[i]); // Anropa funktionspekaren
+			total += calcFunc(stock[i]); // CALL FUNCTION POINTER
 		}
 	}
 

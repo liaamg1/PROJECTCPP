@@ -2,6 +2,7 @@
 #include <iostream>
 #include "Food.h"
 #include "Bulk.h"
+#include "InvalidNameHelper.h"
 
 StorageSystem::StorageSystem() : containerCount(0) {
     // Initiera containrarna som nullptr
@@ -29,7 +30,10 @@ bool StorageSystem::addContainer(double maxWeight) {
 
 bool StorageSystem::addGoods(std::unique_ptr<Goods> goods) {
     bool added = false;
-
+    if (goods->getName().empty() || !InvalidNameException::isValidName(goods->getName())) {
+        std::cout << "Invalid product name, cannot add item!" << std::endl;
+        return false;  // Avbryt om namnet är ogiltigt
+    }
     // Försök att lägga till varan i en passande container
     for (int i = 0; i < containerCount; i++) {
         // Kolla om första varan i containern är av samma typ
@@ -57,9 +61,15 @@ bool StorageSystem::addGoods(std::unique_ptr<Goods> goods) {
     if (!added) {
         if (containerCount < 10) {
             // Skapa en ny container baserat på varans typ (Bulk eller Food)
-            addContainer(100.0);
-            containers[containerCount - 1]->addItem(std::move(goods));  // Lägg till varan i den nya containern
-            added = true;
+            Bulk* bPtr = dynamic_cast<Bulk*>(goods.get());
+            Food* fPtr = dynamic_cast<Food*>(goods.get());
+            if (bPtr != nullptr || fPtr != nullptr)
+            {
+                addContainer(100.0);
+                containers[containerCount - 1]->addItem(std::move(goods));  // Lägg till varan i den nya containern
+                added = true;
+            }
+           
         }
         else {
             std::cout << "No suitable container available!" << std::endl;

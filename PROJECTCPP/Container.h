@@ -9,14 +9,6 @@
 #include <string>
 
 //KOLLA HUR VI SKA GÖRA MED DENNA
-class InvalidNameException : public std::exception {
-public:
-    const char* what() const noexcept override {
-        return "Invalid name! The name cannot be empty or contain invalid characters.";
-    }
-};
-
-
 
 class Container {
 public:
@@ -32,14 +24,14 @@ public:
 
     Goods* getItem(int index) const;
 
-    bool isValidName(const std::string& name) const;
+    
 private:
     double maxWeight;
     double currentWeight;
     int itemCount;
     std::unique_ptr<Goods> items[100];
     bool isFirstItem;  // Flagga som håller koll på om vi har lagt till en vara och vad typen är
-    bool isFoodType;   // Bestämmer om containern är för Food eller Bulk
+   
 };
 
 #endif

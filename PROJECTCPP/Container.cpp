@@ -1,9 +1,4 @@
 #include "Container.h"
-#include "Goods.h"
-#include <iostream>
-#include "Food.h"
-#include "Bulk.h"
-#include "InvalidNameHelper.h"
 
 Container::Container(double maxWeight)
     : maxWeight(maxWeight), currentWeight(0.0), itemCount(0), isFirstItem(false) {

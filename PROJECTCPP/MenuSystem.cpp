@@ -1,9 +1,4 @@
 #include "MenuSystem.h"
-#include "GoodsHandler.h"
-#include "Bulk.h"
-#include "Food.h"
-#include <iostream>
-#include <memory>  // För att använda std::unique_ptr
 
 MenuSystem::MenuSystem() {
     storageSystem = std::make_unique<StorageSystem>();  // Använd std::make_unique för att skapa ett StorageSystem

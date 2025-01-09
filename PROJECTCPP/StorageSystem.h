@@ -1,10 +1,8 @@
 #ifndef STORAGE_SYSTEM_H
 #define STORAGE_SYSTEM_H
 
-#include <memory>  // För att använda std::unique_ptr
-#include <iostream>
 #include "Container.h"
-#include "Goods.h"
+
 
 class StorageSystem {
 public:

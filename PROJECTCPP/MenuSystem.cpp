@@ -1,9 +1,4 @@
 #include "MenuSystem.h"
-#include "GoodsHandler.h"
-#include "Bulk.h"
-#include "Food.h"
-#include <iostream>
-#include <memory>  // För att använda std::unique_ptr
 
 MenuSystem::MenuSystem() {
     storageSystem = std::make_unique<StorageSystem>();  // Använd std::make_unique för att skapa ett StorageSystem
@@ -82,19 +77,16 @@ void MenuSystem::menuSystemStart() {
             stop = false;
         }
         else if (input == '3') {
-            // Show all containers
             storageSystem->showAllContainers();
         }
         else if (input == '4') {
-            // Show totals
             goodsHandler.showTotals();
         }
         else if (input == '5') {
-            // Show totals
+            // Show all Goods
             goodsHandler.showAll();
         }
         else if (input == '6') {
-            // Show totals
             goodsHandler.addToFile();
         }
         else if (input == 'q') {
@@ -108,11 +100,14 @@ void MenuSystem::addBulkToContainer() {
     std::string name;
     float weight, volume;
 
-    std::cout << "Enter Bulk name: ";
+    std::cout << "Enter Food name:" << std::endl;
+    std::cout << ">> ";
     std::cin >> name;
-    std::cout << "Enter Bulk weight: ";
+    std::cout << "\nEnter Food weight:" << std::endl;
+    std::cout << ">> ";
     std::cin >> weight;
-    std::cout << "Enter Bulk volume: ";
+    std::cout << "\nEnter Food quantity:" << std::endl;
+    std::cout << ">> ";
     std::cin >> volume;
 
     // Skapa ett Bulk objekt med std::make_unique
@@ -121,10 +116,10 @@ void MenuSystem::addBulkToContainer() {
 
     // Lägg direkt till Bulk i en container genom att flytta ägandeskapet
     if (storageSystem->addGoods(std::move(bulkItem))) {
-        std::cout << "Bulk item added to container." << std::endl;
+        std::cout << "\nBulk item added to container." << std::endl;
     }
     else {
-        std::cout << "Failed to add Bulk item to container." << std::endl;
+        std::cout << "\nFailed to add Bulk item to container." << std::endl;
     }
 }
 
@@ -134,21 +129,24 @@ void MenuSystem::addFoodToContainer() {
     float weight;
     int quantity;
 
-    std::cout << "Enter Food name: ";
+    std::cout << "Enter Food name:" << std::endl;
+    std::cout << ">> ";
     std::cin >> name;
-    std::cout << "Enter Food weight: ";
+    std::cout << "\nEnter Food weight:" << std::endl;
+    std::cout << ">> ";
     std::cin >> weight;
-    std::cout << "Enter Food quantity: ";
+    std::cout << "\nEnter Food quantity:" << std::endl;
+    std::cout << ">> ";
     std::cin >> quantity;
 
     // Skapa ett Food objekt med std::make_unique
     auto foodItem = std::make_unique<Food>(quantity, weight, name);
-
+    goodsHandler.addGoods(foodItem.get());
     // Lägg direkt till Food i en container genom att flytta ägandeskapet
     if (storageSystem->addGoods(std::move(foodItem))) {
-        std::cout << "Food item added to container." << std::endl;
+        std::cout << "\nFood item added to container." << std::endl;
     }
     else {
-        std::cout << "Failed to add Food item to container." << std::endl;
+        std::cout << "\nFailed to add Food item to container." << std::endl;
     }
 }

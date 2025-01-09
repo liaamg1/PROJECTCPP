@@ -1,9 +1,12 @@
 #ifndef GOODS_HANDLER_H
 #define GOODS_HANDLER_H
-#include "Goods.h"
+
+#include "Food.h"
+#include "Bulk.h"
 #include <vector>
 #include <fstream>
 #include <algorithm>
+
 class GoodsHandler
 {
 private:

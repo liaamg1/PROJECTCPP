@@ -1,8 +1,4 @@
 #include "StorageSystem.h"
-#include <iostream>
-#include "Food.h"
-#include "Bulk.h"
-#include "InvalidNameHelper.h"
 
 StorageSystem::StorageSystem() : containerCount(0) {
     // Initiera containrarna som nullptr

@@ -1,13 +1,15 @@
 #ifndef CONTAINER_H
 #define CONTAINER_H
 
-#include "Goods.h"
 #include <memory>
 #include <stdexcept>
 
 #include <exception>
 #include <string>
 
+#include "Food.h"
+#include "Bulk.h"
+#include "InvalidNameHelper.h"
 //KOLLA HUR VI SKA GÖRA MED DENNA
 
 class Container {

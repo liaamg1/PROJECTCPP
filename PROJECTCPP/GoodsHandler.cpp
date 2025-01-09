@@ -1,6 +1,4 @@
 #include "GoodsHandler.h"
-#include "Bulk.h"
-#include "Food.h"
 
 GoodsHandler::GoodsHandler() : stock(new Goods* [100] {nullptr}), currentNrOfGoods(0), 
 currentNrOfFood(0), currentNrOfBulk(0), foodStock(new Goods* [100] {nullptr}), bulkStock(new Goods* [100] {nullptr})

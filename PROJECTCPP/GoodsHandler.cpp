@@ -69,20 +69,29 @@ void GoodsHandler::readFromFile(const std::string& filename)
 	{
 		for (int i = 0; i < this->currentNrOfGoods; i++)
 		{
-			this->stock[i] = entryAndExitStock[i];
+			if (this->stock[i] == nullptr)
+			{
+				this->stock[i] = entryAndExitStock[i];
+			}
 		}
 		if (filename == "StoredFood.txt")
 		{
 			for (int i = 0; i < this->currentNrOfFood; i++)
 			{
-				this->foodStock[i] = entryAndExitStock[i];
+				if (this->foodStock[i] == nullptr)
+				{
+					this->foodStock[i] = entryAndExitStock[i];
+				}
 			}
 		}
 		else if (filename == "StoredBulk.txt")
 		{
 			for (int i = 0; i < this->currentNrOfBulk; i++)
 			{
-				this->bulkStock[i] = entryAndExitStock[i];
+				if (this->bulkStock[i] == nullptr)
+				{
+					this->bulkStock[i] = entryAndExitStock[i];
+				}
 			}
 		}
 	}
@@ -102,7 +111,7 @@ void GoodsHandler::addToFile()
 	OutStreamFood.open("StoredFood.txt");
 	if (OutStreamFood.is_open() || OutStreamBulk.is_open())
 	{
-		for (int i = 0; i < this->currentNrOfFood; i++)
+		for (int i = 0; i < this->currentNrOfGoods; i++)
 		{
 			Food* fPtr = dynamic_cast<Food*>(stock[i]);
 			if (fPtr != nullptr)
@@ -124,10 +133,6 @@ void GoodsHandler::addToFile()
 	}
 	OutStreamFood.close();
 	OutStreamBulk.close();
-	
-
-
-
 }
 //----->Destructor<-----
 

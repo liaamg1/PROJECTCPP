@@ -12,7 +12,7 @@ void MenuSystem::menuSystemStart() {
     bool stop = false;
     char input;
     char inputOptions;
-
+    loadGoodsFromFile();
    
     while (!stop) {
         std::cout << "------> Main Menu <------" << std::endl;
@@ -23,7 +23,6 @@ void MenuSystem::menuSystemStart() {
         std::cout << "Enter 5) Show all Goods" << std::endl;
         std::cout << "Enter 6) Save current objects to database" << std::endl;
         std::cout << "Enter 7) Remove current objects in files" << std::endl;
-        std::cout << "Enter 8) Load current objects from files" << std::endl;
         std::cout << "Enter q) Quit" << std::endl;
         std::cout << ">> ";
         std::cin >> input;
@@ -94,10 +93,7 @@ void MenuSystem::menuSystemStart() {
             goodsHandler.cleanseFileFromCurrentContents("StoredFood.txt");
             goodsHandler.cleanseFileFromCurrentContents("StoredBulk.txt");
         } 
-        else if (input == '8')
-        {
-            loadGoodsFromFile();
-        }
+       
         else if (input == 'q') {
             stop = true;
         }

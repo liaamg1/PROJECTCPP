@@ -25,6 +25,8 @@ void MenuSystem::menuSystemStart() {
         std::cout << "Enter 3) Show all containers" << std::endl;
         std::cout << "Enter 4) Show totals (weight, volume, quantity)" << std::endl;
         std::cout << "Enter 5) Show all Goods" << std::endl;
+        std::cout << "Enter 6) Save current objects to database" << std::endl;
+        std::cout << "Enter 7) Remove objects" << std::endl;
 
         std::cout << "Enter q) Quit" << std::endl;
         std::cout << ">> ";
@@ -90,6 +92,10 @@ void MenuSystem::menuSystemStart() {
         else if (input == '5') {
             // Show totals
             goodsHandler.showAll();
+        }
+        else if (input == '6') {
+            // Show totals
+            goodsHandler.addToFile();
         }
         else if (input == 'q') {
             stop = true;

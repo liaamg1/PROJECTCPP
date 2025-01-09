@@ -12,8 +12,8 @@ int main() {
     // Skapa ett objekt och starta animationen
     //WelcomePage welcomePage;
     //welcomePage.start();  // Kallar på den enda funktionen som startar allt
-   /* MenuSystem interface;
-    interface.menuSystemStart();*/
+    MenuSystem interface;
+    interface.menuSystemStart();
  
     GoodsHandler gPtr;
     gPtr.readFromFile("StoreFood.txt");

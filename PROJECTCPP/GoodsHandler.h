@@ -34,5 +34,6 @@ public:
 	bool isValidName(const std::string& name) const;
 	void readFromFile(const std::string& filename);
 	void addToFile();
+	void cleanseFileFromCurrentContents(const std::string& filename);
 };
 #endif // !GOODS_HANDLER_H

@@ -21,7 +21,7 @@ void MenuSystem::menuSystemStart() {
         std::cout << "Enter 4) Show totals (weight, volume, quantity)" << std::endl;
         std::cout << "Enter 5) Show all Goods" << std::endl;
         std::cout << "Enter 6) Save current objects to database" << std::endl;
-        std::cout << "Enter 7) Remove objects" << std::endl;
+        std::cout << "Enter 7) Remove current objects in files" << std::endl;
 
         std::cout << "Enter q) Quit" << std::endl;
         std::cout << ">> ";
@@ -89,6 +89,10 @@ void MenuSystem::menuSystemStart() {
         else if (input == '6') {
             goodsHandler.addToFile();
         }
+        else if (input == '7') {
+            goodsHandler.cleanseFileFromCurrentContents("StoredFood.txt");
+            goodsHandler.cleanseFileFromCurrentContents("StoredBulk.txt");
+        } 
         else if (input == 'q') {
             stop = true;
         }

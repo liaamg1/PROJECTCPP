@@ -134,6 +134,15 @@ void GoodsHandler::addToFile()
 	OutStreamFood.close();
 	OutStreamBulk.close();
 }
+
+//----->Removes Current Contents In File<-----
+
+void GoodsHandler::cleanseFileFromCurrentContents(const std::string& filename)
+{
+	std::ofstream cleanseFile;
+	cleanseFile.open(filename, std::ofstream::out | std::ofstream::trunc);
+	cleanseFile.close();
+}
 //----->Destructor<-----
 
 GoodsHandler::~GoodsHandler() {

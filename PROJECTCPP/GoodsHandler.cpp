@@ -35,6 +35,8 @@ bool GoodsHandler::isValidName(const std::string& name) const {
 	}
 	return true;
 }
+// -----> Input into Goods constructor from file <-----
+
 void GoodsHandler::readFromFile(const std::string& filename)
 {
 	std::vector<Goods*> entryAndExitStock;
@@ -99,7 +101,7 @@ void GoodsHandler::readFromFile(const std::string& filename)
 	}
 }
 
-//-----> Output into text file and sorting <-----
+//-----> Output into text file <-----
 
 void GoodsHandler::addToFile()
 {
@@ -182,7 +184,6 @@ bool GoodsHandler::addGoods(Goods* aGoods)
 	return false;
 }
 
-
 //----->SHOW_GOODS<-----
 
 void GoodsHandler::showAll() const {
@@ -215,7 +216,6 @@ void GoodsHandler::showAll() const {
 			std::cout << allGoods[i]->toString() << std::endl;
 		}
 	}
-
 	delete[] allGoods;
 }
 

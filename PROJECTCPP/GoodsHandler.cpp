@@ -143,6 +143,20 @@ void GoodsHandler::cleanseFileFromCurrentContents(const std::string& filename)
 	cleanseFile.open(filename, std::ofstream::out | std::ofstream::trunc);
 	cleanseFile.close();
 }
+int GoodsHandler::getCurrentnrOfGoods()
+{
+	return this->currentNrOfGoods;
+}
+int GoodsHandler::getCurrentNrOfBulk()
+{
+	return this->currentNrOfBulk;
+}
+
+Goods* GoodsHandler::getBulksAt(int index)
+{
+	return this->bulkStock[index];
+}
+
 //----->Destructor<-----
 
 GoodsHandler::~GoodsHandler() {
@@ -186,10 +200,8 @@ bool GoodsHandler::addGoods(Goods* aGoods)
 				}
 			}
 		}
-
 		return true;
 	}
-
 	return false;
 }
 

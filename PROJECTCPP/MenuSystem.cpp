@@ -13,6 +13,17 @@ void MenuSystem::menuSystemStart() {
     char input;
     char inputOptions;
 
+    GoodsHandler* sPtr;
+    sPtr->readFromFile("StoredFood.txt");
+    sPtr->readFromFile("StoredBulk.txt");
+
+  /*  for (int i = 0; i < sPtr->getCurrentnrOfGoods(); i++)
+    {
+        auto bulkItem = std::make_unique<Bulk>(*sPtr->getBulksAt(i));
+        goodsHandler.addGoods(bulkItem.get());
+    }*/
+  
+
     while (!stop) {
         std::cout << "------> Main Menu <------" << std::endl;
         std::cout << "Enter 1) Bulk options" << std::endl;

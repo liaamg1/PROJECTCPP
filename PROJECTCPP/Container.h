@@ -3,10 +3,9 @@
 
 #include <memory>
 #include <stdexcept>
-
 #include <exception>
 #include <string>
-
+#include "GoodsHandler.h"
 #include "Food.h"
 #include "Bulk.h"
 #include "InvalidNameException.h"
@@ -26,7 +25,6 @@ public:
 
     Goods* getItem(int index) const;
 
-    
 private:
     double maxWeight;
     double currentWeight;

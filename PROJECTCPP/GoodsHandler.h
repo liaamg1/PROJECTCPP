@@ -35,5 +35,8 @@ public:
 	void readFromFile(const std::string& filename);
 	void addToFile();
 	void cleanseFileFromCurrentContents(const std::string& filename);
+	int getCurrentnrOfGoods();
+	int getCurrentNrOfBulk();
+	Goods* getBulksAt(int index);
 };
 #endif // !GOODS_HANDLER_H

@@ -20,7 +20,7 @@ private:
     // Hjälpfunktioner för att hantera varor
     void addBulkToContainer();
     void addFoodToContainer();
-
+    void loadGoodsFromFile();
     // Pekare till StorageSystem och GoodsHandler
     std::unique_ptr<StorageSystem> storageSystem;  // Använd unique_ptr för att hantera StorageSystem
     GoodsHandler goodsHandler;  // Antas vara en instans av GoodsHandler, kan justeras om det behövs

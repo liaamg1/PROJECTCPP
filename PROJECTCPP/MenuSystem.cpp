@@ -13,6 +13,7 @@ void MenuSystem::menuSystemStart() {
     char input;
     char inputOptions;
 
+   
     while (!stop) {
         std::cout << "------> Main Menu <------" << std::endl;
         std::cout << "Enter 1) Bulk options" << std::endl;
@@ -22,7 +23,7 @@ void MenuSystem::menuSystemStart() {
         std::cout << "Enter 5) Show all Goods" << std::endl;
         std::cout << "Enter 6) Save current objects to database" << std::endl;
         std::cout << "Enter 7) Remove current objects in files" << std::endl;
-
+        std::cout << "Enter 8) Load current objects from files" << std::endl;
         std::cout << "Enter q) Quit" << std::endl;
         std::cout << ">> ";
         std::cin >> input;
@@ -93,6 +94,10 @@ void MenuSystem::menuSystemStart() {
             goodsHandler.cleanseFileFromCurrentContents("StoredFood.txt");
             goodsHandler.cleanseFileFromCurrentContents("StoredBulk.txt");
         } 
+        else if (input == '8')
+        {
+            loadGoodsFromFile();
+        }
         else if (input == 'q') {
             stop = true;
         }
@@ -104,13 +109,13 @@ void MenuSystem::addBulkToContainer() {
     std::string name;
     float weight, volume;
 
-    std::cout << "Enter Food name:" << std::endl;
+    std::cout << "Enter Bulk name:" << std::endl;
     std::cout << ">> ";
     std::cin >> name;
-    std::cout << "\nEnter Food weight:" << std::endl;
+    std::cout << "\nEnter Bulk weight:" << std::endl;
     std::cout << ">> ";
     std::cin >> weight;
-    std::cout << "\nEnter Food quantity:" << std::endl;
+    std::cout << "\nEnter Bulk quantity:" << std::endl;
     std::cout << ">> ";
     std::cin >> volume;
 
@@ -154,3 +159,31 @@ void MenuSystem::addFoodToContainer() {
         std::cout << "\nFailed to add Food item to container." << std::endl;
     }
 }
+
+void MenuSystem::loadGoodsFromFile() {
+    std::cout << "Loading objects from files and adding to containers..." << std::endl;
+
+    // Ladda objekt från de två textfilerna
+    goodsHandler.readFromFile("StoredFood.txt");
+    goodsHandler.readFromFile("StoredBulk.txt");
+
+    // Lägg till alla inlästa objekt direkt i containrarna (StorageSystem)
+    for (int i = 0; i < goodsHandler.getCurrentNrOfGoods(); i++) {
+        Goods* item = goodsHandler.getCurrentIndex(i);
+        if (item != nullptr) {
+            // Skapa ett std::unique_ptr från råpekaren
+            std::unique_ptr<Goods> itemPtr(item);  // Flytta ägandet av item till itemPtr
+
+            // Försök att lägga till objektet i containern
+            if (!storageSystem->addGoods(std::move(itemPtr))) {
+                std::cout << "Failed to add object to container: " << item->getName() << std::endl;
+            }
+            else {
+                std::cout << "Object added to container: " << item->getName() << std::endl;
+            }
+        }
+    }
+
+    std::cout << "Objects loaded and added to containers." << std::endl;
+}
+

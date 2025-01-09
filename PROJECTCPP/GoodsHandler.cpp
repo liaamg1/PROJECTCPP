@@ -143,6 +143,19 @@ void GoodsHandler::cleanseFileFromCurrentContents(const std::string& filename)
 	cleanseFile.open(filename, std::ofstream::out | std::ofstream::trunc);
 	cleanseFile.close();
 }
+int GoodsHandler::getCurrentNrOfGoods()
+{
+	return this->currentNrOfGoods;
+}
+Goods* GoodsHandler::getCurrentIndex(int index)
+{
+	Goods* ptr = nullptr;
+	if (index < currentNrOfGoods)
+	{
+		ptr = this->stock[index];
+	}
+	return ptr;
+}
 //----->Destructor<-----
 
 GoodsHandler::~GoodsHandler() {
@@ -155,6 +168,9 @@ GoodsHandler::~GoodsHandler() {
 
 	std::cout << "\nstock ptr deleted" << std::endl;
 }
+
+
+
 
 //----->ADD_GOODS<-----
 

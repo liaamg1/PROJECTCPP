@@ -35,5 +35,7 @@ public:
 	void readFromFile(const std::string& filename);
 	void addToFile();
 	void cleanseFileFromCurrentContents(const std::string& filename);
+	int getCurrentNrOfGoods();
+	Goods* getCurrentIndex(int index);
 };
 #endif // !GOODS_HANDLER_H

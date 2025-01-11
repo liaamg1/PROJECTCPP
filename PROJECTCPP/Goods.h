@@ -18,8 +18,6 @@ public:
 	//GET
 	std::string getName() const;
 	float getWeight() const;
-	//virtual float getVolume();
-	//virtual int getQuantity() const { return 0; }
 	//SET
 	void setWeight(float weight);
 	void setName(std::string name);

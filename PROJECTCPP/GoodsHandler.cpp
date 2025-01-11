@@ -26,6 +26,19 @@ currentNrOfBulk(0), currentNrOfFood(0), foodStock(new Goods* [100] {nullptr})
 		}
 	}
 }
+
+//----->Destructor<-----
+
+GoodsHandler::~GoodsHandler() {
+	// Deleting arrays
+	// Objects already deleted i smart pointer
+	delete[] foodStock;
+	delete[] bulkStock;
+	delete[] stock;
+
+
+	std::cout << "\nstock ptr deleted" << std::endl;
+}
 bool GoodsHandler::isValidName(const std::string& name) const {
 
 	for (char c : name) {
@@ -124,34 +137,6 @@ void GoodsHandler::cleanseFileFromCurrentContents(const std::string& filename)
 	cleanseFile.open(filename, std::ofstream::out | std::ofstream::trunc);
 	cleanseFile.close();
 }
-int GoodsHandler::getCurrentNrOfGoods()
-{
-	return this->currentNrOfGoods;
-}
-Goods* GoodsHandler::getCurrentIndex(int index)
-{
-	Goods* ptr = nullptr;
-	if (index < currentNrOfGoods)
-	{
-		ptr = this->stock[index];
-	}
-	return ptr;
-}
-//----->Destructor<-----
-
-GoodsHandler::~GoodsHandler() {
-	// Deleting arrays
-	//Objects already deleted i smart pointer
-	delete[] foodStock;
-	delete[] bulkStock;
-	delete[] stock;
-
-
-	std::cout << "\nstock ptr deleted" << std::endl;
-}
-
-
-
 
 //----->ADD_GOODS<-----
 
@@ -183,10 +168,8 @@ bool GoodsHandler::addGoods(Goods* aGoods)
 				}
 			}
 		}
-
 		return true;
 	}
-
 	return false;
 }
 

@@ -13,9 +13,5 @@ public:
     void setQuantity(int quantity);  // Setter för quantity
     int getQuantity() const;  // Getter för quantity
     std::string toString() const override;
-
-    // Beräkna quantity baserat på weight
-    //void calculateQuantityBasedOnWeight(float weightPerUnit);
 };
-
 #endif // !FOOD_H

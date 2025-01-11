@@ -9,9 +9,16 @@
 #include "Food.h"
 #include "Bulk.h"
 #include "InvalidNameException.h"
-//KOLLA HUR VI SKA GÖRA MED DENNA
 
+static const int CAP = 100;
 class Container {
+private:
+    double maxWeight;
+    double currentWeight;
+    int itemCount;
+    std::unique_ptr<Goods> items[CAP];
+    bool isFirstItem;  // Flagga som håller koll på om vi har lagt till en vara och vad typen är
+
 public:
     Container(double maxWeight);
 
@@ -25,12 +32,6 @@ public:
 
     Goods* getItem(int index) const;
 
-private:
-    double maxWeight;
-    double currentWeight;
-    int itemCount;
-    std::unique_ptr<Goods> items[100];
-    bool isFirstItem;  // Flagga som håller koll på om vi har lagt till en vara och vad typen är
    
 };
 

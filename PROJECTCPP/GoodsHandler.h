@@ -8,9 +8,11 @@
 #include <algorithm>
 #include "Sorter.h"
 
+
 class GoodsHandler
 {
 private:
+	int capacity;
 	int currentNrOfGoods;
 	int currentNrOfFood;   // Antal Food-objekt
 	int currentNrOfBulk;   // Antal Bulk-objekt
@@ -38,5 +40,8 @@ public:
 	void cleanseFileFromCurrentContents(const std::string& filename);
 	int getCurrentNrOfGoods();
 	Goods* getCurrentIndex(int index);
+	void expandStock();
+	void expandFoodStock();
+	void expandBulkStock();
 };
 #endif // !GOODS_HANDLER_H

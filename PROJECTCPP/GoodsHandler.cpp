@@ -1,12 +1,12 @@
 #include "GoodsHandler.h"
 
-GoodsHandler::GoodsHandler() : stock(new Goods* [100] {nullptr}), currentNrOfGoods(0), 
-currentNrOfFood(0), currentNrOfBulk(0), foodStock(new Goods* [100] {nullptr}), bulkStock(new Goods* [100] {nullptr})
+GoodsHandler::GoodsHandler() : stock(new Goods* [capacity] {nullptr}), currentNrOfGoods(0), 
+currentNrOfFood(0), currentNrOfBulk(0), foodStock(new Goods* [capacity] {nullptr}), bulkStock(new Goods* [capacity] {nullptr})
 {
 }
 
-GoodsHandler::GoodsHandler(const GoodsHandler& other) : stock(new Goods* [100] {nullptr}), currentNrOfGoods(other.currentNrOfGoods), bulkStock(new Goods* [100] {nullptr}),
-currentNrOfBulk(0), currentNrOfFood(0), foodStock(new Goods* [100] {nullptr})
+GoodsHandler::GoodsHandler(const GoodsHandler& other) : stock(new Goods* [capacity] {nullptr}), currentNrOfGoods(other.currentNrOfGoods), bulkStock(new Goods* [capacity] {nullptr}),
+currentNrOfBulk(0), currentNrOfFood(0), foodStock(new Goods* [capacity] {nullptr})
 {
 	for (int i = 0; i < this->currentNrOfGoods; i++)
 	{
@@ -30,8 +30,7 @@ currentNrOfBulk(0), currentNrOfFood(0), foodStock(new Goods* [100] {nullptr})
 //----->Destructor<-----
 
 GoodsHandler::~GoodsHandler() {
-	// Deleting arrays
-	// Objects already deleted i smart pointer
+	
 	delete[] foodStock;
 	delete[] bulkStock;
 	delete[] stock;
@@ -42,7 +41,7 @@ GoodsHandler::~GoodsHandler() {
 bool GoodsHandler::isValidName(const std::string& name) const {
 
 	for (char c : name) {
-		if (!isalpha(c) && c != ' ') {  // Tillåter bara bokstäver och mellanslag
+		if (!isalpha(c) && c != ' ') { 
 			return false;
 		}
 	}
@@ -58,17 +57,17 @@ void GoodsHandler::readFromFile(const std::string& filename)
 	float volume;
 	std::ifstream InStream;
 
-	// Öppnar filen
+
 	InStream.open(filename);
 	if (InStream.is_open()) {
-		// Läs in data baserat på filen
+		
 		if (filename == "StoredFood.txt") {
 			while (InStream >> quantity >> weight >> name) {
-				if (currentNrOfFood < 100) {  // Kontrollera om det finns plats för fler food-objekt
-					foodStock[currentNrOfFood] = new Food(quantity, weight, name);
-					stock[currentNrOfGoods] = foodStock[currentNrOfFood];  // Lägg till i huvudlagret
-					currentNrOfFood++;
-					currentNrOfGoods++;
+				if (currentNrOfFood < this->capacity) {  
+					this->foodStock[this->currentNrOfFood] = new Food(quantity, weight, name);
+					this->stock[this->currentNrOfGoods] = this->foodStock[this->currentNrOfFood];  
+					this->currentNrOfFood++;
+					this->currentNrOfGoods++;
 				}
 				else {
 					std::cout << "Error: Food stock is full. Cannot add more items." << std::endl;
@@ -78,11 +77,11 @@ void GoodsHandler::readFromFile(const std::string& filename)
 		}
 		else if (filename == "StoredBulk.txt") {
 			while (InStream >> volume >> weight >> name) {
-				if (currentNrOfBulk < 100) {  // Kontrollera om det finns plats för fler bulk-objekt
-					bulkStock[currentNrOfBulk] = new Bulk(volume, weight, name);
-					stock[currentNrOfGoods] = bulkStock[currentNrOfBulk];  // Lägg till i huvudlagret
-					currentNrOfBulk++;
-					currentNrOfGoods++;
+				if (this->currentNrOfBulk < this->capacity) {  
+					this->bulkStock[this->currentNrOfBulk] = new Bulk(volume, weight, name);
+					this->stock[this->currentNrOfGoods] = this->bulkStock[this->currentNrOfBulk];  
+					this->currentNrOfBulk++;
+					this->currentNrOfGoods++;
 				}
 				else {
 					std::cout << "Error: Bulk stock is full. Cannot add more items." << std::endl;
@@ -93,7 +92,39 @@ void GoodsHandler::readFromFile(const std::string& filename)
 	}
 	InStream.close();
 }
+//-----> Expand arrays <-----
+void GoodsHandler::expandStock()
+{
+	this->capacity *= 2;
+	Goods** newStock = new Goods * [this->capacity];
+	for (int i = 0; i < currentNrOfGoods; ++i) {
+		newStock[i] = this->stock[i];
+	}
+	delete[] stock;
+	this->stock = newStock;
+}
 
+void GoodsHandler::expandFoodStock()
+{
+	this->capacity *= 2;
+	Goods** newFoodStock = new Goods * [this->capacity];
+	for (int i = 0; i < currentNrOfFood; ++i) {
+		newFoodStock[i] = foodStock[i];
+	}
+	delete[] foodStock;
+	this->foodStock = newFoodStock;
+}
+
+void GoodsHandler::expandBulkStock()
+{
+	this->capacity *= 2;
+	Goods** newBulkStock = new Goods * [this->capacity];
+	for (int i = 0; i < currentNrOfBulk; ++i) {
+		newBulkStock[i] = bulkStock[i];
+	}
+	delete[] bulkStock;
+	this->bulkStock = newBulkStock;
+}
 
 //-----> Output into text file <-----
 
@@ -107,7 +138,7 @@ void GoodsHandler::addToFile()
 	{
 		for (int i = 0; i < this->currentNrOfGoods; i++)
 		{
-			Food* fPtr = dynamic_cast<Food*>(stock[i]);
+			Food* fPtr = dynamic_cast<Food*>(this->stock[i]);
 			if (fPtr != nullptr)
 			{
 				OutStreamFood << std::to_string(fPtr->getQuantity()) + "\n";
@@ -115,7 +146,7 @@ void GoodsHandler::addToFile()
 				OutStreamFood << fPtr->getName() + "\n";
 			}
 			else {
-				Bulk* bPtr = dynamic_cast<Bulk*>(stock[i]);
+				Bulk* bPtr = dynamic_cast<Bulk*>(this->stock[i]);
 				if (bPtr != nullptr)
 				{
 					OutStreamBulk << std::to_string(bPtr->getVolume()) + "\n";
@@ -146,7 +177,7 @@ int GoodsHandler::getCurrentNrOfGoods()
 Goods* GoodsHandler::getCurrentIndex(int index)
 {
 	Goods* ptr = nullptr;
-	if (index<currentNrOfGoods)
+	if (index< this->currentNrOfGoods)
 	{
 		ptr = stock[index];
 	}
@@ -163,22 +194,22 @@ bool GoodsHandler::addGoods(Goods* aGoods)
 		return false;
 	}
 
-	if (this->currentNrOfGoods < 100) {
+	if (this->currentNrOfGoods < capacity) {
 		stock[this->currentNrOfGoods] = aGoods;
 		this->currentNrOfGoods++;
 
 		Food* foodPtr = dynamic_cast<Food*>(aGoods);
 		if (foodPtr != nullptr) {
-			if (this->currentNrOfFood < 100) {
-				foodStock[this->currentNrOfFood] = aGoods;
+			if (this->currentNrOfFood < capacity) {
+				this->foodStock[this->currentNrOfFood] = aGoods;
 				this->currentNrOfFood++;
 			}
 		}
 		else {
 			Bulk* bulkPtr = dynamic_cast<Bulk*>(aGoods);
 			if (bulkPtr != nullptr) {
-				if (this->currentNrOfBulk < 100) {
-					bulkStock[this->currentNrOfBulk] = aGoods;
+				if (this->currentNrOfBulk < capacity) {
+					this->bulkStock[this->currentNrOfBulk] = aGoods;
 					this->currentNrOfBulk++;
 				}
 			}
@@ -194,30 +225,30 @@ void GoodsHandler::showAll(int sortChoice)
 {
 	Sorter<Goods> sorter;
 
-	// Lägg till alla objekt i sorteraren
+	
 	for (std::size_t i = 0; i < currentNrOfGoods; ++i) {
 		sorter.addItem(stock[i]);
 	}
 
-	// Sortering baserat på användarens val (vikt eller namn)
+	
 	if (sortChoice == 1) {
 		sorter.sortItems([](const Goods* a, const Goods* b) {
-			return a->getWeight() > b->getWeight();  // Sortera efter vikt
+			return a->getWeight() > b->getWeight();  
 			});
 	}
 	else if (sortChoice == 2) {
 		sorter.sortItems([](const Goods* a, const Goods* b) {
-			return a->getName() < b->getName();  // Sortera efter namn
+			return a->getName() < b->getName();  
 			});
 	}
 	else {
 		std::cout << "Invalid choice. Defaulting to sorting by Weight.\n";
 		sorter.sortItems([](const Goods* a, const Goods* b) {
-			return a->getWeight() > b->getWeight();  // Default sortering
+			return a->getWeight() > b->getWeight(); 
 			});
 	}
 
-	// Visa objekten efter sortering
+	
 	sorter.showItems();
 }
 
@@ -226,8 +257,8 @@ void GoodsHandler::showFood() const
 {
 	std::cout << "\nShowing food items:\n";
 	for (int i = 0; i < this->currentNrOfFood; i++) {
-		if (foodStock[i] != nullptr) {
-			std::cout << foodStock[i]->toString() << std::endl;
+		if (this->foodStock[i] != nullptr) {
+			std::cout << this->foodStock[i]->toString() << std::endl;
 		}
 	}
 }
@@ -236,8 +267,8 @@ void GoodsHandler::showBulk() const
 {
 	std::cout << "\nShowing bulk items:\n";
 	for (int i = 0; i < this->currentNrOfBulk; i++) {
-		if (bulkStock[i] != nullptr) {
-			std::cout << bulkStock[i]->toString() << std::endl;
+		if (this->bulkStock[i] != nullptr) {
+			std::cout << this->bulkStock[i]->toString() << std::endl;
 		}
 	}
 }
@@ -272,6 +303,7 @@ void GoodsHandler::operator=(const GoodsHandler& other)
 		}
 	}
 }
+
 // FUNKTIONSPEKARE
 double sumWeight(const Goods* goods) {
 	return goods->getWeight(); 
@@ -298,8 +330,8 @@ double GoodsHandler::calculateTotal(double (*calcFunc)(const Goods*)) const {
 	double total = 0.0;
 
 	for (int i = 0; i < currentNrOfGoods; i++) {
-		if (stock[i] != nullptr) {
-			total += calcFunc(stock[i]); // CALL FUNCTION POINTER
+		if (this->stock[i] != nullptr) {
+			total += calcFunc(this->stock[i]); // CALL FUNCTION POINTER
 		}
 	}
 
@@ -316,9 +348,9 @@ void GoodsHandler::showTotals() const {
 
 
 	int totalQuantity = 0;
-	for (int i = 0; i < currentNrOfGoods; i++) {
+	for (int i = 0; i < this->currentNrOfGoods; i++) {
 		if (stock[i] != nullptr) {
-			totalQuantity += sumQuantity(stock[i]);
+			totalQuantity += sumQuantity(this->stock[i]);
 		}
 	}
 	std::cout << "Total quantity: " << totalQuantity << std::endl;

@@ -138,6 +138,21 @@ void GoodsHandler::cleanseFileFromCurrentContents(const std::string& filename)
 	cleanseFile.close();
 }
 
+int GoodsHandler::getCurrentNrOfGoods()
+{
+	return this->currentNrOfGoods;
+}
+
+Goods* GoodsHandler::getCurrentIndex(int index)
+{
+	Goods* ptr = nullptr;
+	if (index<currentNrOfGoods)
+	{
+		ptr = stock[index];
+	}
+	return ptr;
+}
+
 //----->ADD_GOODS<-----
 
 bool GoodsHandler::addGoods(Goods* aGoods)

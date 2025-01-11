@@ -26,6 +26,19 @@
 			}
 		}
 	}
+
+	//----->Destructor<-----
+
+	GoodsHandler::~GoodsHandler() {
+		// Deleting arrays
+		//Objects already deleted i smart pointer
+		delete[] foodStock;
+		delete[] bulkStock;
+		delete[] stock;
+
+
+		std::cout << "\nstock ptr deleted" << std::endl;
+	}
 	bool GoodsHandler::isValidName(const std::string& name) const {
 
 		for (char c : name) {
@@ -137,22 +150,7 @@
 		}
 		return ptr;
 	}
-	//----->Destructor<-----
-
-	GoodsHandler::~GoodsHandler() {
-		// Deleting arrays
-		//Objects already deleted i smart pointer
-		delete[] foodStock;
-		delete[] bulkStock;
-		delete[] stock;
-
-
-		std::cout << "\nstock ptr deleted" << std::endl;
-	}
-
-
-
-
+	
 	//----->ADD_GOODS<-----
 
 	bool GoodsHandler::addGoods(Goods* aGoods)

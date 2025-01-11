@@ -175,39 +175,36 @@ bool GoodsHandler::addGoods(Goods* aGoods)
 
 //----->SHOW_GOODS<-----
 
-void GoodsHandler::showAll() const {
-	Goods** allGoods = new Goods * [this->currentNrOfGoods];  
+void GoodsHandler::showAll(int sortChoice)
+{
+	Sorter<Goods> sorter;
 
-	int index = 0;
-
-	
-	for (int i = 0; i < this->currentNrOfFood; i++) {
-		if (foodStock[i] != nullptr) {
-			allGoods[index++] = foodStock[i];
-		}
+	// Lägg till alla objekt i sorteraren
+	for (std::size_t i = 0; i < currentNrOfGoods; ++i) {
+		sorter.addItem(stock[i]);
 	}
 
-	
-	for (int i = 0; i < this->currentNrOfBulk; i++) {
-		if (bulkStock[i] != nullptr) {
-			allGoods[index++] = bulkStock[i];
-		}
+	// Sortering baserat på användarens val (vikt eller namn)
+	if (sortChoice == 1) {
+		sorter.sortItems([](const Goods* a, const Goods* b) {
+			return a->getWeight() > b->getWeight();  // Sortera efter vikt
+			});
+	}
+	else if (sortChoice == 2) {
+		sorter.sortItems([](const Goods* a, const Goods* b) {
+			return a->getName() < b->getName();  // Sortera efter namn
+			});
+	}
+	else {
+		std::cout << "Invalid choice. Defaulting to sorting by Weight.\n";
+		sorter.sortItems([](const Goods* a, const Goods* b) {
+			return a->getWeight() > b->getWeight();  // Default sortering
+			});
 	}
 
-	// LAMBDA 1P
-	std::sort(allGoods, allGoods + index, [](Goods* a, Goods* b) {
-		return a->getWeight() > b->getWeight();  // Jämför vikten ** KOLLA ÖVER
-		});
-
-	std::cout << "Showing all goods (sorted by weight):" << std::endl;
-	for (int i = 0; i < index; i++) {
-		if (allGoods[i] != nullptr) {
-			std::cout << allGoods[i]->toString() << std::endl;
-		}
-	}
-	delete[] allGoods;
+	// Visa objekten efter sortering
+	sorter.showItems();
 }
-
 
 
 void GoodsHandler::showFood() const

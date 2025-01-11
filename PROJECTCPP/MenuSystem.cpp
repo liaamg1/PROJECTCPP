@@ -84,7 +84,11 @@ void MenuSystem::menuSystemStart() {
         }
         else if (input == '5') {
             // Show all Goods
-            goodsHandler.showAll();
+            std::cout << "1. Sort by weight" << std::endl;
+            std::cout << "2. Sort by name" << std::endl;
+            int sortType;
+            std::cin >> sortType;
+            goodsHandler.showAll(sortType);
         }
         else if (input == '6') {
             goodsHandler.addToFile();

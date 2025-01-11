@@ -14,8 +14,8 @@ WelcomePage::WelcomePage() {
     rect.setFillColor(sf::Color::Blue);           // Startfärg
 
     // Styr hastighet för rektangel
-    speedX = 400.f;
-    speedY = 400.f;
+    speedX = 5000.f;
+    speedY = 5000.f;
 }
 
 // Flytta rektangeln enligt hastigheten och ändra färg när den träffar väggen

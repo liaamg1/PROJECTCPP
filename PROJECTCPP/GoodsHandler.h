@@ -6,6 +6,7 @@
 #include <vector>
 #include <fstream>
 #include <algorithm>
+#include "Sorter.h"
 
 class GoodsHandler
 {
@@ -27,7 +28,7 @@ public:
 	double calculateTotal(double (*calcFunc)(const Goods*)) const;
 	bool addGoods(Goods* aGoods);
 	     // Lägga till i Bulk-arrayen
-	void showAll() const;
+	void showAll(int sortChoice);
 	void showFood() const;             // Visa endast Food-objekt
 	void showBulk() const;             // Visa endast Bulk-objekt
 	void operator=(const GoodsHandler& other);

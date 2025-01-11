@@ -26,6 +26,7 @@
     <ClCompile Include="GoodsHandler.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MenuSystem.cpp" />
+    <ClCompile Include="Sorter.cpp" />
     <ClCompile Include="StorageSystem.cpp" />
     <ClCompile Include="WelcomePage.cpp" />
   </ItemGroup>
@@ -37,6 +38,7 @@
     <ClInclude Include="GoodsHandler.h" />
     <ClInclude Include="InvalidNameException.h" />
     <ClInclude Include="MenuSystem.h" />
+    <ClInclude Include="Sorter.h" />
     <ClInclude Include="StorageSystem.h" />
     <ClInclude Include="TILLFÄLLIG_H_FIL.h" />
     <ClInclude Include="WelcomePage.h" />

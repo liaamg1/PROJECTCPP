@@ -13,7 +13,7 @@ public:
     // Lägg till en ny container
     bool addContainer(double maxWeight);
 
-    // Lägg till varor i containrar
+   
     bool addGoods(std::unique_ptr<Goods> goods);
 
     // Visa alla containrar och deras innehåll

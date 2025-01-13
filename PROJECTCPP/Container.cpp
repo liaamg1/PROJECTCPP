@@ -18,6 +18,7 @@ void Container::addItem(std::unique_ptr<Goods> goods) {
         if (goods->getName().empty() || !InvalidNameException::isValidName(goods->getName())) {
             throw InvalidNameException(); 
         }
+
         // KOLLA SÅ INTE MINDRE ÄN 0
        
         if (itemCount == 0) {

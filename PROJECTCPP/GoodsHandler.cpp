@@ -1,31 +1,10 @@
 #include "GoodsHandler.h"
 
-GoodsHandler::GoodsHandler() : stock(new Goods* [capacity] {nullptr}), currentNrOfGoods(0), 
-currentNrOfFood(0), currentNrOfBulk(0), foodStock(new Goods* [capacity] {nullptr}), bulkStock(new Goods* [capacity] {nullptr})
+GoodsHandler::GoodsHandler(int capacity) : stock(new Goods* [capacity] {nullptr}), currentNrOfGoods(0), 
+currentNrOfFood(0), currentNrOfBulk(0), foodStock(new Goods* [capacity] {nullptr}), bulkStock(new Goods* [capacity] {nullptr}), capacity(capacity)
 {
 }
 
-GoodsHandler::GoodsHandler(const GoodsHandler& other) : stock(new Goods* [capacity] {nullptr}), currentNrOfGoods(other.currentNrOfGoods), bulkStock(new Goods* [capacity] {nullptr}),
-currentNrOfBulk(0), currentNrOfFood(0), foodStock(new Goods* [capacity] {nullptr})
-{
-	for (int i = 0; i < this->currentNrOfGoods; i++)
-	{
-		Bulk* bPtr = dynamic_cast<Bulk*>(other.stock[i]);
-
-		if (bPtr != nullptr)
-		{
-			stock[i] = new Bulk(*bPtr);
-		}
-		else
-		{
-			Food* cPtr = dynamic_cast<Food*>(other.stock[i]);
-			if (cPtr != nullptr)
-			{
-				stock[i] = new Food(*cPtr);
-			}
-		}
-	}
-}
 
 //----->Destructor<-----
 
@@ -269,37 +248,6 @@ void GoodsHandler::showBulk() const
 	for (int i = 0; i < this->currentNrOfBulk; i++) {
 		if (this->bulkStock[i] != nullptr) {
 			std::cout << this->bulkStock[i]->toString() << std::endl;
-		}
-	}
-}
-
-//----->Operator<-----
-
-void GoodsHandler::operator=(const GoodsHandler& other)
-{
-	if (this != &other)
-	{
-		for (int i = 0; i < this->currentNrOfGoods; i++)
-		{
-			delete this->stock[i];
-		}
-		this->currentNrOfGoods = other.currentNrOfGoods;
-
-		for (int i = 0; i < this->currentNrOfGoods; i++)
-		{
-			Bulk* bPtr = dynamic_cast<Bulk*>(other.stock[i]);
-
-			if (bPtr != nullptr)
-			{
-				stock[i] = new Bulk(*bPtr);
-			}
-			else {
-				Food* cPtr = dynamic_cast<Food*>(other.stock[i]);
-				if (cPtr != nullptr)
-				{
-					stock[i] = new Food(*cPtr);
-				}
-			}
 		}
 	}
 }

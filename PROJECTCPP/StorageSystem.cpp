@@ -1,14 +1,12 @@
 #include "StorageSystem.h"
 
 StorageSystem::StorageSystem() : containerCount(0) {
-    // Initiera containrarna som nullptr
     for (int i = 0; i < 10; i++) {
         containers[i] = nullptr;
     }
 }
 
 StorageSystem::~StorageSystem() {
-    // Radera alla containrar när StorageSystem förstörs
     for (int i = 0; i < containerCount; i++) {
         std::cout << "Destroying Container" << std::endl;
     }
@@ -28,15 +26,12 @@ bool StorageSystem::addGoods(std::unique_ptr<Goods> goods) {
     bool added = false;
     if (goods->getName().empty() || !InvalidNameException::isValidName(goods->getName())) {
         std::cout << "Invalid product name, cannot add item!" << std::endl;
-        return false;  // Avbryt om namnet är ogiltigt
+        return false;
     }
-    // Försök att lägga till varan i en passande container
     for (int i = 0; i < containerCount; i++) {
-        // Kolla om första varan i containern är av samma typ
         bool isFirstItemBulk = dynamic_cast<Bulk*>(containers[i]->getItem(0)) != nullptr;
 
         if (isFirstItemBulk && dynamic_cast<Bulk*>(goods.get())) {
-            // Lägg till varan i containern om den får plats
             if (containers[i]->canAddGoods(goods->getWeight())) {
                 containers[i]->addItem(std::move(goods));
                 added = true;
@@ -44,7 +39,6 @@ bool StorageSystem::addGoods(std::unique_ptr<Goods> goods) {
             }
         }
         else if (!isFirstItemBulk && dynamic_cast<Food*>(goods.get())) {
-            // Lägg till varan i containern om den får plats
             if (containers[i]->canAddGoods(goods->getWeight())) {
                 containers[i]->addItem(std::move(goods));
                 added = true;
@@ -53,19 +47,16 @@ bool StorageSystem::addGoods(std::unique_ptr<Goods> goods) {
         }
     }
 
-    // Om ingen passande container hittades, skapa en ny container
     if (!added) {
         if (containerCount < 10) {
-            // Skapa en ny container baserat på varans typ (Bulk eller Food)
             Bulk* bPtr = dynamic_cast<Bulk*>(goods.get());
             Food* fPtr = dynamic_cast<Food*>(goods.get());
             if (bPtr != nullptr || fPtr != nullptr)
             {
                 addContainer(100.0);
-                containers[containerCount - 1]->addItem(std::move(goods));  // Lägg till varan i den nya containern
+                containers[containerCount - 1]->addItem(std::move(goods));
                 added = true;
             }
-           
         }
         else {
             std::cout << "No suitable container available!" << std::endl;
@@ -75,10 +66,9 @@ bool StorageSystem::addGoods(std::unique_ptr<Goods> goods) {
     return added;
 }
 
-
 void StorageSystem::showAllContainers() const {
     for (int i = 0; i < containerCount; i++) {
         std::cout << "Container " << i + 1 << " contains the following items:" << std::endl;
-        containers[i]->showContent();  // Visa alla varor i containern
+        containers[i]->showContent();
     }
 }

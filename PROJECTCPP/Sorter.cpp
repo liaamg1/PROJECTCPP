@@ -1,7 +1,7 @@
 
 #include "Sorter.h"
-#include "Food.h"  // Inkludera header för Food
-#include "Bulk.h"  // Inkludera header för Bulk
+#include "Food.h"  
+#include "Bulk.h"  
 #include <algorithm> 
 
 // Konstruktor

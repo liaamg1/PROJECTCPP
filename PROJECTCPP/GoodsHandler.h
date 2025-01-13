@@ -23,23 +23,24 @@ private:
 
 
 public:
-	GoodsHandler();
-	GoodsHandler(const GoodsHandler& other);
+	GoodsHandler(int capacity = 50);
 	~GoodsHandler();
 	void showTotals() const;
 	double calculateTotal(double (*calcFunc)(const Goods*)) const;
 	bool addGoods(Goods* aGoods);
-	     // Lägga till i Bulk-arrayen
+
 	void showAll(int sortChoice);
-	void showFood() const;             // Visa endast Food-objekt
-	void showBulk() const;             // Visa endast Bulk-objekt
-	void operator=(const GoodsHandler& other);
+	void showFood() const;            
+	void showBulk() const;           
+
 	bool isValidName(const std::string& name) const;
 	void readFromFile(const std::string& filename);
 	void addToFile();
 	void cleanseFileFromCurrentContents(const std::string& filename);
+
 	int getCurrentNrOfGoods();
 	Goods* getCurrentIndex(int index);
+
 	void expandStock();
 	void expandFoodStock();
 	void expandBulkStock();

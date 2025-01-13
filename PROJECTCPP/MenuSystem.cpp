@@ -114,7 +114,7 @@ void MenuSystem::addBulkToContainer() {
     std::cout << "\nEnter Bulk weight:" << std::endl;
     std::cout << ">> ";
     std::cin >> weight;
-    std::cout << "\nEnter Bulk quantity:" << std::endl;
+    std::cout << "\nEnter Bulk volume:" << std::endl;
     std::cout << ">> ";
     std::cin >> volume;
 

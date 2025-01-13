@@ -69,7 +69,7 @@ void Container::showContent() const {
 
     double remainingWeight = maxWeight - totalWeightUsed;
     std::cout << "\nTotal weight used in container: " << totalWeightUsed << std::endl;
-    std::cout << "Remaining weight capacity: " << remainingWeight << std::endl;
+    std::cout << "Remaining weight capacity: " << remainingWeight <<"\n"<< std::endl;
 }
 
 bool Container::isEmpty() const {

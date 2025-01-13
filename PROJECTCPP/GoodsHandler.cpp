@@ -36,46 +36,31 @@ void GoodsHandler::readFromFile(const std::string& filename)
 	float volume;
 	std::ifstream InStream;
 
-	
 	InStream.open(filename);
 	if (InStream.is_open()) {
 		
 		if (filename == "StoredFood.txt") {
 			while (InStream >> quantity >> weight >> name) {
-				if (currentNrOfFood < this->capacity) {  
-					this->foodStock[this->currentNrOfFood] = new Food(quantity, weight, name);
-					this->stock[this->currentNrOfGoods] = this->foodStock[this->currentNrOfFood];  
-					this->currentNrOfFood++;
-					this->currentNrOfGoods++;
-
-					if (this->capacity == currentNrOfGoods)
-					{
-						this->expandStock();
-					}
+				if (this->capacity == currentNrOfGoods)
+				{
+					this->expandStock();
 				}
-				else {
-					std::cout << "Error: Food stock is full. Cannot add more items." << std::endl;
-					break;
-				}
+				this->foodStock[this->currentNrOfFood] = new Food(quantity, weight, name);
+				this->stock[this->currentNrOfGoods] = this->foodStock[this->currentNrOfFood];  
+				this->currentNrOfFood++;
+				this->currentNrOfGoods++;
 			}
 		}
 		else if (filename == "StoredBulk.txt") {
 			while (InStream >> volume >> weight >> name) {
-				if (this->currentNrOfBulk < this->capacity) {  
-					this->bulkStock[this->currentNrOfBulk] = new Bulk(volume, weight, name);
-					this->stock[this->currentNrOfGoods] = this->bulkStock[this->currentNrOfBulk];  
-					this->currentNrOfBulk++;
-					this->currentNrOfGoods++;
-
-					if (this->capacity == currentNrOfGoods)
-					{
-						this->expandStock();
-					}
+				if (this->capacity == currentNrOfGoods)
+				{
+					this->expandStock();
 				}
-				else {
-					std::cout << "Error: Bulk stock is full. Cannot add more items." << std::endl;
-					break;
-				}
+				this->bulkStock[this->currentNrOfBulk] = new Bulk(volume, weight, name);
+				this->stock[this->currentNrOfGoods] = this->bulkStock[this->currentNrOfBulk];  
+				this->currentNrOfBulk++;
+				this->currentNrOfGoods++;
 			}
 		}
 	}

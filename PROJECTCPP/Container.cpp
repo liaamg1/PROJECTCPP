@@ -1,11 +1,8 @@
 #include "Container.h"
 
 Container::Container(double maxWeight)
-    : maxWeight(maxWeight), currentWeight(0.0), itemCount(0), isFirstItem(false) {
-
-    for (int i = 0; i < 10; i++) {
-        items[i] = nullptr; 
-    }
+    : maxWeight(maxWeight), currentWeight(0.0), isFirstItem(false) {
+    // Ingen behov av att specificera initial kapacitet här längre
 }
 
 bool Container::canAddGoods(double weight) const {
@@ -14,36 +11,30 @@ bool Container::canAddGoods(double weight) const {
 
 void Container::addItem(std::unique_ptr<Goods> goods) {
     try {
-        //EXCEPTION, 1P
+        // EXCEPTION, 1P
         if (goods->getName().empty() || !InvalidNameException::isValidName(goods->getName())) {
-            throw InvalidNameException(); 
+            throw InvalidNameException();
         }
 
-        // KOLLA SÅ INTE MINDRE ÄN 0
-       
-        if (itemCount == 0) {
-            items[itemCount++] = std::move(goods);
-            currentWeight += items[itemCount - 1]->getWeight();
+        if (items.empty()) {
+            items.push_back(std::move(goods));
+            currentWeight += items.back()->getWeight();
         }
         else {
-            
             bool isFirstItemBulk = dynamic_cast<Bulk*>(items[0].get()) != nullptr;
-            Bulk* bulkPtr = dynamic_cast<Bulk*>(items[0].get());
-           
             if (isFirstItemBulk && dynamic_cast<Bulk*>(goods.get())) {
-                if (canAddGoods(goods->getWeight()) && itemCount < 10) {
-                    items[itemCount++] = std::move(goods);
-                    currentWeight += items[itemCount - 1]->getWeight();
+                if (canAddGoods(goods->getWeight())) {
+                    items.push_back(std::move(goods));
+                    currentWeight += items.back()->getWeight();
                 }
                 else {
                     std::cout << "Cannot add item: Not enough space in the container." << std::endl;
                 }
             }
-           
             else if (!isFirstItemBulk && dynamic_cast<Food*>(goods.get())) {
-                if (canAddGoods(goods->getWeight()) && itemCount < 10) {
-                    items[itemCount++] = std::move(goods);
-                    currentWeight += items[itemCount - 1]->getWeight();
+                if (canAddGoods(goods->getWeight())) {
+                    items.push_back(std::move(goods));
+                    currentWeight += items.back()->getWeight();
                 }
                 else {
                     std::cout << "Cannot add item: Not enough space in the container." << std::endl;
@@ -63,13 +54,13 @@ void Container::addItem(std::unique_ptr<Goods> goods) {
 }
 
 void Container::showContent() const {
-    if (itemCount == 0) {
+    if (items.empty()) {
         std::cout << "Container is empty!" << std::endl;
         return;
     }
 
     double totalWeightUsed = 0.0;
-    for (int i = 0; i < itemCount; i++) {
+    for (size_t i = 0; i < items.size(); ++i) {
         if (items[i]) {
             std::cout << "Item " << i + 1 << ": " << items[i]->toString()
                 << ", Weight: " << items[i]->getWeight() << std::endl;
@@ -83,7 +74,7 @@ void Container::showContent() const {
 }
 
 bool Container::isEmpty() const {
-    return itemCount == 0;
+    return items.empty();
 }
 
 double Container::getCurrentWeight() const {
@@ -95,8 +86,8 @@ double Container::getMaxWeight() const {
 }
 
 Goods* Container::getItem(int index) const {
-    if (index >= 0 && index < itemCount) {
-        return items[index].get();  
+    if (index >= 0 && index < static_cast<int>(items.size())) {
+        return items[index].get();  // Returnera pekare till objektet
     }
     return nullptr;
 }

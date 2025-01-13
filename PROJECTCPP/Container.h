@@ -5,19 +5,18 @@
 #include <stdexcept>
 #include <exception>
 #include <string>
+#include <vector>  
 #include "GoodsHandler.h"
 #include "Food.h"
 #include "Bulk.h"
 #include "InvalidNameException.h"
 
-static const int CAP = 100;
 class Container {
 private:
     double maxWeight;
     double currentWeight;
-    int itemCount;
-    std::unique_ptr<Goods> items[CAP];
-    bool isFirstItem;  // Flagga som håller koll på om vi har lagt till en vara och vad typen är
+    std::vector<std::unique_ptr<Goods>> items;  // Använd vector för lagring
+    bool isFirstItem;
 
 public:
     Container(double maxWeight);
@@ -29,10 +28,7 @@ public:
 
     double getCurrentWeight() const;
     double getMaxWeight() const;
-
     Goods* getItem(int index) const;
-
-   
 };
 
 #endif

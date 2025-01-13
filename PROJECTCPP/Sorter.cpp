@@ -25,8 +25,8 @@ bool Sorter<T>::addItem(T* item) {
 
 // Sortera objekten
 template <typename T>
-void Sorter<T>::sortItems(std::function<bool(const T*, const T*)> comparer) {
-    std::sort(items, items + size, comparer);
+void Sorter<T>::sortItems(std::function<bool(const T*, const T*)> comparing) {
+    std::sort(items, items + size, comparing);
 }
 
 // Visa objekten

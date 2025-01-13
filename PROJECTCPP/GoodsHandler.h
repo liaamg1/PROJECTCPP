@@ -23,7 +23,7 @@ private:
 
 
 public:
-	GoodsHandler(int capacity = 50);
+	GoodsHandler(int capacity = 10);
 	~GoodsHandler();
 	void showTotals() const;
 	double calculateTotal(double (*calcFunc)(const Goods*)) const;
@@ -42,7 +42,6 @@ public:
 	Goods* getCurrentIndex(int index);
 
 	void expandStock();
-	void expandFoodStock();
-	void expandBulkStock();
+	
 };
 #endif // !GOODS_HANDLER_H

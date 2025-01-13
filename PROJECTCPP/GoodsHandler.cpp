@@ -36,7 +36,7 @@ void GoodsHandler::readFromFile(const std::string& filename)
 	float volume;
 	std::ifstream InStream;
 
-
+	
 	InStream.open(filename);
 	if (InStream.is_open()) {
 		
@@ -47,6 +47,11 @@ void GoodsHandler::readFromFile(const std::string& filename)
 					this->stock[this->currentNrOfGoods] = this->foodStock[this->currentNrOfFood];  
 					this->currentNrOfFood++;
 					this->currentNrOfGoods++;
+
+					if (this->capacity == currentNrOfGoods)
+					{
+						this->expandStock();
+					}
 				}
 				else {
 					std::cout << "Error: Food stock is full. Cannot add more items." << std::endl;
@@ -61,6 +66,11 @@ void GoodsHandler::readFromFile(const std::string& filename)
 					this->stock[this->currentNrOfGoods] = this->bulkStock[this->currentNrOfBulk];  
 					this->currentNrOfBulk++;
 					this->currentNrOfGoods++;
+
+					if (this->capacity == currentNrOfGoods)
+					{
+						this->expandStock();
+					}
 				}
 				else {
 					std::cout << "Error: Bulk stock is full. Cannot add more items." << std::endl;
@@ -75,35 +85,31 @@ void GoodsHandler::readFromFile(const std::string& filename)
 void GoodsHandler::expandStock()
 {
 	this->capacity *= 2;
+	
 	Goods** newStock = new Goods * [this->capacity];
+	Goods** newFoodStock = new Goods * [this->capacity];
+	Goods** newBulkStock = new Goods * [this->capacity];
 	for (int i = 0; i < currentNrOfGoods; ++i) {
 		newStock[i] = this->stock[i];
+
+	}
+	for (int i = 0; i < currentNrOfBulk; i++)
+	{
+		newBulkStock[i] = this->bulkStock[i];
+	}
+	for (int i = 0; i < currentNrOfFood; i++)
+	{
+		newFoodStock[i] = this->foodStock[i];
 	}
 	delete[] stock;
 	this->stock = newStock;
-}
-
-void GoodsHandler::expandFoodStock()
-{
-	this->capacity *= 2;
-	Goods** newFoodStock = new Goods * [this->capacity];
-	for (int i = 0; i < currentNrOfFood; ++i) {
-		newFoodStock[i] = foodStock[i];
-	}
 	delete[] foodStock;
 	this->foodStock = newFoodStock;
-}
-
-void GoodsHandler::expandBulkStock()
-{
-	this->capacity *= 2;
-	Goods** newBulkStock = new Goods * [this->capacity];
-	for (int i = 0; i < currentNrOfBulk; ++i) {
-		newBulkStock[i] = bulkStock[i];
-	}
 	delete[] bulkStock;
 	this->bulkStock = newBulkStock;
+	std::cout << "Expand called, current capacity = " << this->capacity << std::endl;
 }
+
 
 //-----> Output into text file <-----
 
@@ -167,6 +173,10 @@ Goods* GoodsHandler::getCurrentIndex(int index)
 
 bool GoodsHandler::addGoods(Goods* aGoods)
 {
+	if (capacity==currentNrOfGoods)
+	{
+		this->expandStock();
+	}
 	
 	if (aGoods != nullptr && !isValidName(aGoods->getName())) {
 		std::cout << "Invalid name for item. Cannot add to stock." << std::endl;
@@ -252,7 +262,7 @@ void GoodsHandler::showBulk() const
 	}
 }
 
-// FUNKTIONSPEKARE
+// FUNCTION POINTER
 double sumWeight(const Goods* goods) {
 	return goods->getWeight(); 
 }

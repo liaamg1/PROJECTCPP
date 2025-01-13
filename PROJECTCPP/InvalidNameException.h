@@ -21,19 +21,7 @@ public:
         }
         return true;
     }
-    static bool isValidValue(const std::string& str) {
-        // Om strängen är tom eller inte börjar med en siffra, är den ogiltig
-        if (str.empty() || str[0] == '0') { 
-            return false; 
-        }
-        for (char c : str) {
-            if (!std::isdigit(c)) {
-                return false;
-            }
-        }
-        // Om strängen är ett heltal och större än 0, är det giltigt
-        return true;
-    }
+    
 };
 
 #endif // INVALID_NAME_HELPER_H

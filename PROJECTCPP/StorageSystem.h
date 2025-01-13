@@ -21,7 +21,10 @@ public:
 
 private:
     static const int MAX_CONTAINERS = 10;  // Max antal containrar
-    std::unique_ptr<Container> containers[MAX_CONTAINERS];  // En array av unika containrar
+
+    std::unique_ptr<Container> containers[MAX_CONTAINERS];  
+
+
     int containerCount;  // Håller reda på antalet containrar
 };
 

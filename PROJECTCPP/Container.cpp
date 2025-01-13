@@ -62,8 +62,7 @@ void Container::showContent() const {
     double totalWeightUsed = 0.0;
     for (size_t i = 0; i < items.size(); ++i) {
         if (items[i]) {
-            std::cout << "Item " << i + 1 << ": " << items[i]->toString()
-                << ", Weight: " << items[i]->getWeight() << std::endl;
+            std::cout << "Item " << i + 1 << ": " << items[i]->toString()<< std::endl;
             totalWeightUsed += items[i]->getWeight();
         }
     }

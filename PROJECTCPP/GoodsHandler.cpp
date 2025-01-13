@@ -102,6 +102,7 @@ void GoodsHandler::addToFile()
 {
 	std::ofstream OutStreamFood;
 	std::ofstream OutStreamBulk;
+
 	OutStreamBulk.open("StoredBulk.txt");
 	OutStreamFood.open("StoredFood.txt");
 	if (OutStreamFood.is_open() || OutStreamBulk.is_open())

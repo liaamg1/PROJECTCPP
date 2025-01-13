@@ -15,7 +15,10 @@ class Container {
 private:
     double maxWeight;
     double currentWeight;
-    std::vector<std::unique_ptr<Goods>> items;  // Använd vector för lagring
+
+    std::vector<std::unique_ptr<Goods>> items; 
+
+
     bool isFirstItem;
 
 public:

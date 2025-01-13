@@ -84,7 +84,7 @@ void GoodsHandler::readFromFile(const std::string& filename)
 //-----> Expand arrays <-----
 void GoodsHandler::expandStock()
 {
-	this->capacity *= 2;
+	this->capacity += 5;
 	
 	Goods** newStock = new Goods * [this->capacity];
 	Goods** newFoodStock = new Goods * [this->capacity];
@@ -107,7 +107,7 @@ void GoodsHandler::expandStock()
 	this->foodStock = newFoodStock;
 	delete[] bulkStock;
 	this->bulkStock = newBulkStock;
-	std::cout << "Expand called, current capacity = " << this->capacity << std::endl;
+	std::cout << "Expand function called, current capacity = " << this->capacity << std::endl;
 }
 
 

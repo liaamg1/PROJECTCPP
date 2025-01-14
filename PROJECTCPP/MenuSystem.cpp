@@ -20,7 +20,7 @@ void MenuSystem::menuSystemStart() {
         std::cout << "Enter 3) Show all containers" << std::endl;
         std::cout << "Enter 4) Show totals (weight, volume, quantity)" << std::endl;
         std::cout << "Enter 5) Show all Goods" << std::endl;
-        std::cout << "Enter 6) Save current objects to database" << std::endl;
+        std::cout << "Enter 6) Save current objects to files" << std::endl;
         std::cout << "Enter 7) Remove current objects in files" << std::endl;
         std::cout << "Enter q) Quit" << std::endl;
         std::cout << ">> ";
@@ -36,7 +36,7 @@ void MenuSystem::menuSystemStart() {
                 std::cout << "Enter q) Back to main menu" << std::endl;
                 std::cout << ">> ";
                 std::cin >> inputOptions;
-                std::cout << "\n\n";
+                std::cout << "\n\n\n";
 
                 if (inputOptions == '1') {
                     addBulkToContainer();
@@ -60,7 +60,7 @@ void MenuSystem::menuSystemStart() {
                 std::cout << "Enter q) Back to main menu" << std::endl;
                 std::cout << ">> ";
                 std::cin >> inputOptions;
-                std::cout << "\n\n";
+                std::cout << "\n\n\n";
 
                 if (inputOptions == '1') {
                     addFoodToContainer();
@@ -86,15 +86,19 @@ void MenuSystem::menuSystemStart() {
             std::cout << "1. Sort by weight" << std::endl;
             std::cout << "2. Sort by name" << std::endl;
             int sortType;
+            std::cout << ">> ";
             std::cin >> sortType;
+            std::cout << std::endl;
             goodsHandler.showAll(sortType);
         }
         else if (input == '6') {
             goodsHandler.addToFile();
+            std::cout << "Objects added: " << goodsHandler.getCurrentNrOfGoods() << "\n" << std::endl;
         }
         else if (input == '7') {
             goodsHandler.cleanseFileFromCurrentContents("StoredFood.txt");
             goodsHandler.cleanseFileFromCurrentContents("StoredBulk.txt");
+            std::cout << "Objects Removed: " << goodsHandler.getCurrentNrOfGoods() << "\n" << std::endl;
         } 
        
         else if (input == 'q') {
@@ -117,6 +121,7 @@ void MenuSystem::addBulkToContainer() {
     std::cout << "\nEnter Bulk volume:" << std::endl;
     std::cout << ">> ";
     std::cin >> volume;
+    std::cout << "\n" << std::endl;
 
    
     auto bulkItem = std::make_unique<Bulk>(volume, weight, name);
@@ -124,10 +129,10 @@ void MenuSystem::addBulkToContainer() {
 
     
     if (storageSystem->addGoods(std::move(bulkItem))) {
-        std::cout << "\nBulk item added to container." << std::endl;
+        std::cout << "\nBulk item added to container.\n" << std::endl;
     }
     else {
-        std::cout << "\nFailed to add Bulk item to container." << std::endl;
+        std::cout << "\nFailed to add Bulk item to container.\n" << std::endl;
     }
 }
 
@@ -145,25 +150,25 @@ void MenuSystem::addFoodToContainer() {
     std::cout << "\nEnter Food quantity:" << std::endl;
     std::cout << ">> ";
     std::cin >> quantity;
+    std::cout << "\n" << std::endl;
 
     auto foodItem = std::make_unique<Food>(quantity, weight, name);
     goodsHandler.addGoods(foodItem.get());
 
     if (storageSystem->addGoods(std::move(foodItem))) {
-        std::cout << "\nFood item added to container." << std::endl;
+        std::cout << "\nFood item added to container.\n" << std::endl;
     }
     else {
-        std::cout << "\nFailed to add Food item to container." << std::endl;
+        std::cout << "\nFailed to add Food item to container.\n" << std::endl;
     }
 }
 
 void MenuSystem::loadGoodsFromFile() {
-    std::cout << "Loading objects from files and adding to containers..." << std::endl;
+    std::cout << "Loading objects from files and adding to containers...\n" << std::endl;
 
     //LOAD OBJECTS
     goodsHandler.readFromFile("StoredFood.txt");
     goodsHandler.readFromFile("StoredBulk.txt");
-
     
     for (int i = 0; i < goodsHandler.getCurrentNrOfGoods(); i++) {
         Goods* item = goodsHandler.getCurrentIndex(i);
@@ -178,7 +183,6 @@ void MenuSystem::loadGoodsFromFile() {
             }
         }
     }
-
-    std::cout << "Objects loaded and added to containers." << std::endl;
+    std::cout << std::endl;
 }
 

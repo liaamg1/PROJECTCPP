@@ -13,7 +13,7 @@ StorageSystem::~StorageSystem() {
 }
 
 bool StorageSystem::addContainer(double maxWeight) {
-    if (containerCount < 10) {
+    if (containerCount < MAX_CONTAINERS) {
         containers[containerCount] = std::make_unique<Container>(maxWeight);
         containerCount++;
         return true;
@@ -44,7 +44,7 @@ bool StorageSystem::addGoods(std::unique_ptr<Goods> goods) {
     }
 
     if (!added) {
-        if (containerCount < 10) {
+        if (containerCount < MAX_CONTAINERS) {
             if (dynamic_cast<Bulk*>(goods.get())) {
                 
                 double maxWeight = 200.0;

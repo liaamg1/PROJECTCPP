@@ -191,7 +191,7 @@ bool GoodsHandler::addGoods(Goods* aGoods)
 	return false;
 }
 
-//----->SORT_GOODS<-----
+//----->SHOW_SORT_GOODS<-----
 
 void GoodsHandler::showAll(char sortChoice)
 {

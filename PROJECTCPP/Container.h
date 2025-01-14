@@ -24,7 +24,7 @@ private:
 public:
 
     Container(double maxWeight);
-    Container(double maxWeight, double maxVolume);
+    Container(double maxWeight, float maxVolume);
 
     bool canAddGoods(double weight, double volume) const;
     bool canAddGoods(double weight) const;

@@ -17,13 +17,15 @@ private:
     double currentWeight;
 
     std::vector<std::unique_ptr<Goods>> items; 
-
+    float maxVolume;
 
     bool isFirstItem;
 
 public:
     Container(double maxWeight);
+    Container(double maxWeight, double maxVolume);
 
+    bool canAddGoods(double weight, double volume) const;
     bool canAddGoods(double weight) const;
     void addItem(std::unique_ptr<Goods> goods);
     void showContent() const;
@@ -31,6 +33,7 @@ public:
 
     double getCurrentWeight() const;
     double getMaxWeight() const;
+    double getMaxVolume() const;
     Goods* getItem(int index) const;
 };
 

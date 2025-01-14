@@ -49,14 +49,22 @@ bool StorageSystem::addGoods(std::unique_ptr<Goods> goods) {
 
     if (!added) {
         if (containerCount < 10) {
-            Bulk* bPtr = dynamic_cast<Bulk*>(goods.get());
-            Food* fPtr = dynamic_cast<Food*>(goods.get());
-            if (bPtr != nullptr || fPtr != nullptr)
-            {
-                addContainer(100.0);
-                containers[containerCount - 1]->addItem(std::move(goods));
+            if (dynamic_cast<Bulk*>(goods.get())) {
+                
+                double maxWeight = 200.0;
+                double maxVolume = 300.0;
+                containers[containerCount] = std::make_unique<Container>(maxWeight, maxVolume);
+                containers[containerCount]->addItem(std::move(goods));
                 added = true;
             }
+            else if (dynamic_cast<Food*>(goods.get())) {
+                
+                double maxWeight = 200.0;
+                containers[containerCount] = std::make_unique<Container>(maxWeight);
+                containers[containerCount]->addItem(std::move(goods));
+                added = true;
+            }
+            containerCount++;
         }
         else {
             std::cout << "No suitable container available!" << std::endl;

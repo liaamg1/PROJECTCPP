@@ -164,7 +164,7 @@ void MenuSystem::addFoodToContainer() {
     std::cout << "Enter Food name:" << std::endl;
     std::cout << ">> ";
     std::cin >> name;
-    std::cout << "\nEnter Food weight:" << std::endl;
+    std::cout << "\nEnter Food weight per quantity:" << std::endl;
     std::cout << ">> ";
     std::cin >> weight;
     std::cout << "\nEnter Food quantity:" << std::endl;
@@ -172,7 +172,8 @@ void MenuSystem::addFoodToContainer() {
     std::cin >> quantity;
     std::cout << "\n" << std::endl;
 
-    auto foodItem = std::make_unique<Food>(quantity, weight, name);
+    float sumOfWeightAndQuantity = quantity*weight;
+    auto foodItem = std::make_unique<Food>(quantity, sumOfWeightAndQuantity, name);
     goodsHandler.addGoods(foodItem.get());
 
     if (storageSystem->addGoods(std::move(foodItem))) {

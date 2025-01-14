@@ -4,7 +4,9 @@ Container::Container(double maxWeight)
     : maxWeight(maxWeight), currentWeight(0.0), isFirstItem(false) {
     
 }
-
+Container::Container(double maxWeight, double maxVolume)
+    : maxWeight(maxWeight), currentWeight(0.0), maxVolume(maxVolume), isFirstItem(false) {
+}
 bool Container::canAddGoods(double weight) const {
     return (currentWeight + weight <= maxWeight);
 }
@@ -60,28 +62,46 @@ void Container::showContent() const {
     }
 
     double totalWeightUsed = 0.0;
-    for (size_t i = 0; i < items.size(); ++i) {
+    double totalVolumeUsed = 0.0;
+
+    for (int i = 0; i < items.size(); ++i) {
         if (items[i]) {
             std::cout << "Item " << i + 1 << ": " << items[i]->toString()<< std::endl;
             totalWeightUsed += items[i]->getWeight();
+            if (dynamic_cast<Bulk*>(items[i].get())) {
+                totalVolumeUsed += dynamic_cast<Bulk*>(items[i].get())->getVolume();
+            }
         }
     }
 
     double remainingWeight = maxWeight - totalWeightUsed;
     std::cout << "\nTotal weight used in container: " << totalWeightUsed << std::endl;
     std::cout << "Remaining weight capacity: " << remainingWeight <<"\n"<< std::endl;
+    if (maxVolume > 0) {
+        double remainingVolume = maxVolume - totalVolumeUsed;
+        std::cout << "Total volume used in container: " << totalVolumeUsed << std::endl;
+        std::cout << "Remaining volume capacity: " << remainingVolume << "\n" << std::endl;
+    }
 }
 
+bool Container::canAddGoods(double weight, double volume) const {
+    return (currentWeight + weight <= maxWeight && volume <= maxVolume);
+}
 bool Container::isEmpty() const {
-    return items.empty();
+    return this->items.empty();
 }
 
 double Container::getCurrentWeight() const {
-    return currentWeight;
+    return this->currentWeight;
 }
 
 double Container::getMaxWeight() const {
-    return maxWeight;
+    return this->maxWeight;
+}
+
+double Container::getMaxVolume() const
+{
+    return this->maxVolume;
 }
 
 Goods* Container::getItem(int index) const {

@@ -198,8 +198,8 @@ void GoodsHandler::showAll(char sortChoice)
 	Sorter<Goods> sorter;
 
 	
-	for (std::size_t i = 0; i < currentNrOfGoods; ++i) {
-		sorter.addItem(stock[i]);
+	for (int i = 0; i < this->currentNrOfGoods; ++i) {
+		sorter.addItem(this->stock[i]);
 	}
 
 	

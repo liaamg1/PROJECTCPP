@@ -165,11 +165,6 @@ bool GoodsHandler::addGoods(Goods* aGoods)
 	{
 		this->expandStock();
 	}
-	
-	if (aGoods != nullptr && !isValidName(aGoods->getName())) {
-		std::cout << "Invalid name for item. Cannot add to stock." << std::endl;
-		return false;
-	}
 
 	if (this->currentNrOfGoods < capacity) {
 		stock[this->currentNrOfGoods] = aGoods;

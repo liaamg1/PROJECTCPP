@@ -5,7 +5,9 @@
 #include "GoodsHandler.h"
 #include "Bulk.h"
 #include "Food.h"
+#include "InvalidNameException.h"
 #include <memory>  
+#include <string>
 
 class MenuSystem {
 public:

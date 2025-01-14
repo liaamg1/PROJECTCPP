@@ -128,61 +128,105 @@ void MenuSystem::menuSystemStart() {
 }
 
 void MenuSystem::addBulkToContainer() {
-   
-    std::string name;
-    float weight, volume;
+    try {
+        std::string name, weightStr, volumeStr;
 
-    std::cout << "Enter Bulk name:" << std::endl;
-    std::cout << ">> ";
-    std::cin >> name;
-    std::cout << "\nEnter Bulk weight:" << std::endl;
-    std::cout << ">> ";
-    std::cin >> weight;
-    std::cout << "\nEnter Bulk volume:" << std::endl;
-    std::cout << ">> ";
-    std::cin >> volume;
-    std::cout << "\n" << std::endl;
+        std::cout << "Enter Bulk name:" << std::endl;
+        std::cout << ">> ";
+        std::cin >> name;
 
-   
-    auto bulkItem = std::make_unique<Bulk>(volume, weight, name);
-    goodsHandler.addGoods(bulkItem.get());  
+        if (name.empty() || !InvalidNameException::isValidName(name)) {
+            throw InvalidNameException();
+        }
 
-    
-    if (storageSystem->addGoods(std::move(bulkItem))) {
-        std::cout << "\nBulk item added to container.\n" << std::endl;
+        std::cout << "\nEnter Bulk weight (must be a positive number):" << std::endl;
+        std::cout << ">> ";
+        std::cin >> weightStr;
+
+        if (!InvalidNameException::isValidNumber(weightStr)) {
+            throw  InvalidNameException();;
+        }
+        float weight = std::stof(weightStr);
+
+        std::cout << "\nEnter Bulk volume (must be a positive number):" << std::endl;
+        std::cout << ">> ";
+        std::cin >> volumeStr;
+
+        if (!InvalidNameException::isValidNumber(volumeStr)) {
+            throw  InvalidNameException();;
+        }
+        float volume = std::stof(volumeStr);
+
+        auto bulkItem = std::make_unique<Bulk>(volume, weight, name);
+        goodsHandler.addGoods(bulkItem.get());
+
+        if (storageSystem->addGoods(std::move(bulkItem))) {
+            std::cout << "\nBulk item added to container.\n" << std::endl;
+        }
+        else {
+            std::cout << "\nFailed to add Bulk item to container.\n" << std::endl;
+        }
     }
-    else {
-        std::cout << "\nFailed to add Bulk item to container.\n" << std::endl;
+    catch (const InvalidNameException& e) {
+        std::cout << "Error: " << e.what() << std::endl;
+    }
+    catch (const std::exception& e) {
+        std::cout << "General error: " << e.what() << std::endl;
     }
 }
+
 
 void MenuSystem::addFoodToContainer() {
-    std::string name;
-    float weight;
-    int quantity;
+    try {
+        std::string name, weightStr, quantityStr;
 
-    std::cout << "Enter Food name:" << std::endl;
-    std::cout << ">> ";
-    std::cin >> name;
-    std::cout << "\nEnter Food weight per quantity:" << std::endl;
-    std::cout << ">> ";
-    std::cin >> weight;
-    std::cout << "\nEnter Food quantity:" << std::endl;
-    std::cout << ">> ";
-    std::cin >> quantity;
-    std::cout << "\n" << std::endl;
+        std::cout << "Enter Food name:" << std::endl;
+        std::cout << ">> ";
+        std::cin >> name;
 
-    float sumOfWeightAndQuantity = quantity*weight;
-    auto foodItem = std::make_unique<Food>(quantity, sumOfWeightAndQuantity, name);
-    goodsHandler.addGoods(foodItem.get());
+        if (name.empty() || !InvalidNameException::isValidName(name)) {
+            throw InvalidNameException();
+        }
 
-    if (storageSystem->addGoods(std::move(foodItem))) {
-        std::cout << "\nFood item added to container.\n" << std::endl;
+        std::cout << "\nEnter Food weight per quantity (must be a positive number):" << std::endl;
+        std::cout << ">> ";
+        std::cin >> weightStr;
+
+        if (!InvalidNameException::isValidNumber(weightStr)) {
+            throw InvalidNameException();
+        }
+        float weight = std::stof(weightStr);
+
+        std::cout << "\nEnter Food quantity (must be a positive number):" << std::endl;
+        std::cout << ">> ";
+        std::cin >> quantityStr;
+
+        if (!InvalidNameException::isValidNumber(quantityStr)) {
+            throw InvalidNameException();
+        }
+        int quantity = std::stoi(quantityStr);
+
+        float sumOfWeightAndQuantity = quantity * weight;
+        auto foodItem = std::make_unique<Food>(quantity, sumOfWeightAndQuantity, name);
+        goodsHandler.addGoods(foodItem.get());
+
+        if (storageSystem->addGoods(std::move(foodItem))) {
+            std::cout << "\nFood item added to container.\n" << std::endl;
+        }
+        else {
+            std::cout << "\nFailed to add Food item to container.\n" << std::endl;
+        }
     }
-    else {
-        std::cout << "\nFailed to add Food item to container.\n" << std::endl;
+    catch (const InvalidNameException& e) {
+        std::cout << "Error: " << e.what() << std::endl;
+    }
+    catch (const std::exception& e) {
+        std::cout << "General error: " << e.what() << std::endl;
     }
 }
+
+
+
 
 void MenuSystem::loadGoodsFromFile() {
     std::cout << "Loading objects from files and adding to containers...\n" << std::endl;

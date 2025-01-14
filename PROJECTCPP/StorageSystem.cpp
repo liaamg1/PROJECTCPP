@@ -24,10 +24,6 @@ bool StorageSystem::addContainer(double maxWeight) {
 
 bool StorageSystem::addGoods(std::unique_ptr<Goods> goods) {
     bool added = false;
-    if (goods->getName().empty() || !InvalidNameException::isValidName(goods->getName())) {
-        std::cout << "Invalid product name, cannot add item!" << std::endl;
-        return false;
-    }
     for (int i = 0; i < containerCount; i++) {
         bool isFirstItemBulk = dynamic_cast<Bulk*>(containers[i]->getItem(0)) != nullptr;
 

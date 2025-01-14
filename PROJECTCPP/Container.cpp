@@ -1,7 +1,7 @@
 #include "Container.h"
 
 Container::Container(double maxWeight)
-    : maxWeight(maxWeight), currentWeight(0.0), isFirstItem(false) {
+    : maxWeight(maxWeight), currentWeight(0.0), isFirstItem(false), maxVolume(maxVolume) {
     
 }
 Container::Container(double maxWeight, double maxVolume)
@@ -12,48 +12,37 @@ bool Container::canAddGoods(double weight) const {
 }
 
 void Container::addItem(std::unique_ptr<Goods> goods) {
-    try {
-        // EXCEPTION
-        if (goods->getName().empty() || !InvalidNameException::isValidName(goods->getName())) {
-            throw InvalidNameException();
-        }
 
-        if (items.empty()) {
-            items.push_back(std::move(goods));
-            currentWeight += items.back()->getWeight();
-        }
-        else {
-            bool isFirstItemBulk = dynamic_cast<Bulk*>(items[0].get()) != nullptr;
-            if (isFirstItemBulk && dynamic_cast<Bulk*>(goods.get())) {
-                if (canAddGoods(goods->getWeight())) {
-                    items.push_back(std::move(goods));
-                    currentWeight += items.back()->getWeight();
-                }
-                else {
-                    std::cout << "Cannot add item: Not enough space in the container." << std::endl;
-                }
-            }
-            else if (!isFirstItemBulk && dynamic_cast<Food*>(goods.get())) {
-                if (canAddGoods(goods->getWeight())) {
-                    items.push_back(std::move(goods));
-                    currentWeight += items.back()->getWeight();
-                }
-                else {
-                    std::cout << "Cannot add item: Not enough space in the container." << std::endl;
-                }
+    if (items.empty()) {
+        items.push_back(std::move(goods));
+        currentWeight += items.back()->getWeight();
+    }
+    else {
+        bool isFirstItemBulk = dynamic_cast<Bulk*>(items[0].get()) != nullptr;
+        if (isFirstItemBulk && dynamic_cast<Bulk*>(goods.get())) {
+            if (canAddGoods(goods->getWeight())) {
+                items.push_back(std::move(goods));
+                currentWeight += items.back()->getWeight();
             }
             else {
-                std::cout << "Type mismatch, creating a new container for the item." << std::endl;
+                std::cout << "Cannot add item: Not enough space in the container." << std::endl;
             }
         }
-    }
-    catch (const InvalidNameException& e) {
-        std::cout << e.what() << std::endl;
-    }
-    catch (const std::exception& e) {
-        std::cout << "General error: " << e.what() << std::endl;
+        else if (!isFirstItemBulk && dynamic_cast<Food*>(goods.get())) {
+            if (canAddGoods(goods->getWeight())) {
+                items.push_back(std::move(goods));
+                currentWeight += items.back()->getWeight();
+            }
+            else {
+                std::cout << "Cannot add item: Not enough space in the container." << std::endl;
+            }
+        }
+        else {
+            std::cout << "Type mismatch, creating a new container for the item." << std::endl;
+        }
     }
 }
+    
 
 void Container::showContent() const {
     if (items.empty()) {

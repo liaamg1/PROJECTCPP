@@ -278,7 +278,7 @@ double GoodsHandler::calculateTotal(double (*calcFunc)(const Goods*)) const {
 
 	for (int i = 0; i < currentNrOfGoods; i++) {
 		if (this->stock[i] != nullptr) {
-			total += calcFunc(this->stock[i]); // CALL FUNCTION POINTER
+			total += calcFunc(this->stock[i]); 
 		}
 	}
 

@@ -36,12 +36,5 @@ void Goods::setWeight(float weight)
 void Goods::setName(std::string name)
 {
 	this->name = name;
-
 }
 
-//----->TO_STRING<-----
-
-std::string Goods::toString() const
-{
-	return "Weight: " + std::to_string(this->weight) + "\nName: " + this->name;
-}

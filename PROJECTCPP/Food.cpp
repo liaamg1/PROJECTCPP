@@ -28,5 +28,5 @@ int Food::getQuantity() const
 
 std::string Food::toString() const
 {
-    return "\nFood\nQuantity: " + std::to_string(this->quantity) + "\n" + Goods::toString();
+    return  "\nFood\nQuantity: " + std::to_string(this->quantity) + "\n" + "Weight: " + std::to_string(getWeight()) + "\nName: " + getName();
 }

@@ -2,7 +2,7 @@
 
 Container::Container(double maxWeight)
     : maxWeight(maxWeight), currentWeight(0.0), isFirstItem(false) {
-    // Ingen behov av att specificera initial kapacitet här längre
+    
 }
 
 bool Container::canAddGoods(double weight) const {
@@ -11,7 +11,7 @@ bool Container::canAddGoods(double weight) const {
 
 void Container::addItem(std::unique_ptr<Goods> goods) {
     try {
-        // EXCEPTION, 1P
+        // EXCEPTION
         if (goods->getName().empty() || !InvalidNameException::isValidName(goods->getName())) {
             throw InvalidNameException();
         }
@@ -86,7 +86,7 @@ double Container::getMaxWeight() const {
 
 Goods* Container::getItem(int index) const {
     if (index >= 0 && index < static_cast<int>(items.size())) {
-        return items[index].get();  // Returnera pekare till objektet
+        return items[index].get();  
     }
     return nullptr;
 }

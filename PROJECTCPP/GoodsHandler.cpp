@@ -26,6 +26,7 @@ bool GoodsHandler::isValidName(const std::string& name) const {
 	}
 	return true;
 }
+
 // -----> Input into Goods constructor from file <-----
 
 void GoodsHandler::readFromFile(const std::string& filename)
@@ -67,6 +68,7 @@ void GoodsHandler::readFromFile(const std::string& filename)
 	InStream.close();
 }
 //-----> Expand arrays <-----
+
 void GoodsHandler::expandStock()
 {
 	this->capacity += 5;
@@ -248,7 +250,8 @@ void GoodsHandler::showBulk() const
 	}
 }
 
-// FUNCTION POINTER
+//-----> FUNCTION POINTER <-----
+
 double sumWeight(const Goods* goods) {
 	return goods->getWeight(); 
 }

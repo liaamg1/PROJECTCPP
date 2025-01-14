@@ -14,12 +14,12 @@ class GoodsHandler
 private:
 	int capacity;
 	int currentNrOfGoods;
-	int currentNrOfFood;   // Antal Food-objekt
-	int currentNrOfBulk;   // Antal Bulk-objekt
+	int currentNrOfFood;   
+	int currentNrOfBulk;   
 
 	Goods** stock;
-	Goods** foodStock;   // Array för Food-objekt
-	Goods** bulkStock;   // Array för Bulk-objekt
+	Goods** foodStock;   
+	Goods** bulkStock;   
 
 
 public:

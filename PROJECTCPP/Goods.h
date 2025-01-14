@@ -15,10 +15,9 @@ public:
 	Goods(float weight = 0.0f, const std::string& name = "Unknown");
 	virtual ~Goods();
 
-	//GET
 	std::string getName() const;
 	float getWeight() const;
-	//SET
+
 	void setWeight(float weight);
 	void setName(std::string name);
 

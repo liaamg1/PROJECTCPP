@@ -71,9 +71,6 @@
     <ClInclude Include="MenuSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TILLFÄLLIG_H_FIL.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="InvalidNameException.h">
       <Filter>Header Files</Filter>
     </ClInclude>

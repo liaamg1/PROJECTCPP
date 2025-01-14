@@ -191,18 +191,14 @@ bool GoodsHandler::addGoods(Goods* aGoods)
 	return false;
 }
 
-//----->SHOW_GOODS<-----
+//----->SORT_GOODS<-----
 
 void GoodsHandler::showAll(char sortChoice)
 {
 	Sorter<Goods> sorter;
-
-	
 	for (int i = 0; i < this->currentNrOfGoods; ++i) {
 		sorter.addItem(this->stock[i]);
 	}
-
-	
 	if (sortChoice == '1') {
 		sorter.sortItems([](const Goods* a, const Goods* b) {
 			return a->getWeight() > b->getWeight();  
@@ -219,11 +215,10 @@ void GoodsHandler::showAll(char sortChoice)
 			return a->getWeight() > b->getWeight(); 
 			});
 	}
-
-	
 	sorter.showItems();
 }
 
+//----->SHOW_GOODS<-----
 
 void GoodsHandler::showFood() const
 {

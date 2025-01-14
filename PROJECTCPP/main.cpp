@@ -15,8 +15,6 @@ int main() {
     MenuSystem interface;
     interface.menuSystemStart();
  
-    GoodsHandler gPtr;
-    gPtr.readFromFile("StoreFood.txt");
   
     return 0;
 }

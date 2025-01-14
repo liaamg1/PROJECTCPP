@@ -8,10 +8,10 @@ private:
     int quantity;
 
 public:
-    Food(int quantity = 0, float weight = 0.0f, const std::string& name = "Unknown");  // Initialisera quantity till 0
-    ~Food(); // Destruktor
-    void setQuantity(int quantity);  // Setter för quantity
-    int getQuantity() const;  // Getter för quantity
+    Food(int quantity = 0, float weight = 0.0f, const std::string& name = "Unknown");  
+    ~Food(); 
+    void setQuantity(int quantity);  
+    int getQuantity() const;  
     std::string toString() const override;
 };
 #endif // !FOOD_H

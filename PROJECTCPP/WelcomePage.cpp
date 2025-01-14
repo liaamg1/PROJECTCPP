@@ -1,7 +1,7 @@
 #include "WelcomePage.h"
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
-#include <cstdlib>  // För rand()
+#include <cstdlib>  
 
 // Konstruktor för att initiera rektangeln
 WelcomePage::WelcomePage() {

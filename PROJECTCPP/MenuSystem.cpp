@@ -156,16 +156,23 @@ void MenuSystem::addBulkToContainer() {
             throw  InvalidNameException();;
         }
         float volume = std::stof(volumeStr);
+        if (weight < 200 && volume < 300)
+        {
+            auto bulkItem = std::make_unique<Bulk>(volume, weight, name);
+            goodsHandler.addGoods(bulkItem.get());
 
-        auto bulkItem = std::make_unique<Bulk>(volume, weight, name);
-        goodsHandler.addGoods(bulkItem.get());
-
-        if (storageSystem->addGoods(std::move(bulkItem))) {
-            std::cout << "\nBulk item added to container.\n" << std::endl;
+            if (storageSystem->addGoods(std::move(bulkItem))) {
+                std::cout << "\nBulk item added to container.\n" << std::endl;
+            }
+            else {
+                std::cout << "\nFailed to add Bulk item to container.\n" << std::endl;
+            }
         }
-        else {
-            std::cout << "\nFailed to add Bulk item to container.\n" << std::endl;
+        else
+        {
+            std::cout << "Too much weight/volume" << std::endl;
         }
+        
     }
     catch (const InvalidNameException& e) {
         std::cout << "Error: " << e.what() << std::endl;
@@ -207,14 +214,21 @@ void MenuSystem::addFoodToContainer() {
         int quantity = std::stoi(quantityStr);
 
         float sumOfWeightAndQuantity = quantity * weight;
-        auto foodItem = std::make_unique<Food>(quantity, sumOfWeightAndQuantity, name);
-        goodsHandler.addGoods(foodItem.get());
+        if (sumOfWeightAndQuantity < 200)
+        {
+            auto foodItem = std::make_unique<Food>(quantity, sumOfWeightAndQuantity, name);
+            goodsHandler.addGoods(foodItem.get());
 
-        if (storageSystem->addGoods(std::move(foodItem))) {
-            std::cout << "\nFood item added to container.\n" << std::endl;
+            if (storageSystem->addGoods(std::move(foodItem))) {
+                std::cout << "\nFood item added to container.\n" << std::endl;
+            }
+            else {
+                std::cout << "\nFailed to add Food item to container.\n" << std::endl;
+            }
         }
-        else {
-            std::cout << "\nFailed to add Food item to container.\n" << std::endl;
+        else
+        {
+            std::cout << "Too heavy" << std::endl;
         }
     }
     catch (const InvalidNameException& e) {

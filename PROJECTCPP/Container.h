@@ -22,6 +22,7 @@ private:
     bool isFirstItem;
 
 public:
+
     Container(double maxWeight);
     Container(double maxWeight, double maxVolume);
 

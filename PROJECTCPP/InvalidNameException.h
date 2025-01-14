@@ -12,8 +12,8 @@ public:
     }
 
     static bool isValidName(const std::string& name) {
-        for (char c : name) {
-            if (!std::isalpha(c) && c != ' ') {
+        for (int i = 0; i < name.length(); ++i) {
+            if (!std::isalpha(name[i]) && name[i] != ' ') {
                 return false;
             }
         }

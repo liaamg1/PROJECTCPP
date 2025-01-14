@@ -196,7 +196,7 @@ bool GoodsHandler::addGoods(Goods* aGoods)
 
 //----->SHOW_GOODS<-----
 
-void GoodsHandler::showAll(int sortChoice)
+void GoodsHandler::showAll(char sortChoice)
 {
 	Sorter<Goods> sorter;
 
@@ -206,12 +206,12 @@ void GoodsHandler::showAll(int sortChoice)
 	}
 
 	
-	if (sortChoice == 1) {
+	if (sortChoice == '1') {
 		sorter.sortItems([](const Goods* a, const Goods* b) {
 			return a->getWeight() > b->getWeight();  
 			});
 	}
-	else if (sortChoice == 2) {
+	else if (sortChoice == '2') {
 		sorter.sortItems([](const Goods* a, const Goods* b) {
 			return a->getName() < b->getName();  
 			});

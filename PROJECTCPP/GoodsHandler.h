@@ -29,7 +29,7 @@ public:
 	double calculateTotal(double (*calcFunc)(const Goods*)) const;
 	bool addGoods(Goods* aGoods);
 
-	void showAll(int sortChoice);
+	void showAll(char sortChoice);
 	void showFood() const;            
 	void showBulk() const;           
 

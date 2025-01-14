@@ -19,9 +19,8 @@ void MenuSystem::menuSystemStart() {
         std::cout << "Enter 2) Food options" << std::endl;
         std::cout << "Enter 3) Show all containers" << std::endl;
         std::cout << "Enter 4) Show totals (weight, volume, quantity)" << std::endl;
-        std::cout << "Enter 5) Show all Goods" << std::endl;
-        std::cout << "Enter 6) Save current objects to files" << std::endl;
-        std::cout << "Enter 7) Remove current objects in files" << std::endl;
+        std::cout << "Enter 5) Sorting Options" << std::endl;
+        std::cout << "Enter 6) File Options" << std::endl;
         std::cout << "Enter q) Quit" << std::endl;
         std::cout << ">> ";
         std::cin >> input;
@@ -46,7 +45,6 @@ void MenuSystem::menuSystemStart() {
                 }
                 else if (inputOptions == 'q') {
                     stop = true;
-                    break;
                 }
             }
             stop = false;
@@ -70,7 +68,6 @@ void MenuSystem::menuSystemStart() {
                 }
                 else if (inputOptions == 'q') {
                     stop = true;
-                    break;
                 }
             }
             stop = false;
@@ -82,25 +79,48 @@ void MenuSystem::menuSystemStart() {
             goodsHandler.showTotals();
         }
         else if (input == '5') {
-           
-            std::cout << "1. Sort by weight" << std::endl;
-            std::cout << "2. Sort by name" << std::endl;
-            int sortType;
-            std::cout << ">> ";
-            std::cin >> sortType;
-            std::cout << std::endl;
-            goodsHandler.showAll(sortType);
+            while (!stop) {
+                std::cout << "------> Sorting Options <------" << std::endl;
+                std::cout << "Enter 1) Sort by weight" << std::endl;
+                std::cout << "Enter 2) Sort by name" << std::endl;
+                std::cout << "Enter q) Back to main menu" << std::endl;
+                std::cout << ">> ";
+                std::cin >> inputOptions;
+                std::cout << "\n\n\n";
+                if (inputOptions == '1' || inputOptions == '2')
+                {
+                    goodsHandler.showAll(inputOptions);
+                }
+                else if (inputOptions == 'q') {
+                    stop = true;
+                }
+            }
+            stop = false;
         }
-        else if (input == '6') {
-            goodsHandler.addToFile();
-            std::cout << "Objects added: " << goodsHandler.getCurrentNrOfGoods() << "\n" << std::endl;
+        else if (input == '6'){
+            while (!stop) {
+                std::cout << "------> File Options <------" << std::endl;
+                std::cout << "Enter 1) Save current objects to Files" << std::endl;
+                std::cout << "Enter 2) Cleanse Files from their current Holdings" << std::endl;
+                std::cout << "Enter q) Back to main menu" << std::endl;
+                std::cout << ">> ";
+                std::cin >> inputOptions;
+                std::cout << "\n\n\n";
+                if (inputOptions == '1') {
+                    goodsHandler.addToFile();
+                    std::cout << "Objects added: " << goodsHandler.getCurrentNrOfGoods() << "\n" << std::endl;
+                }
+                else if (inputOptions == '2') {
+                    goodsHandler.cleanseFileFromCurrentContents("StoredFood.txt");
+                    goodsHandler.cleanseFileFromCurrentContents("StoredBulk.txt");
+                    std::cout << "Objects Removed: " << goodsHandler.getCurrentNrOfGoods() << "\n" << std::endl;
+                }
+                else if (inputOptions == 'q') {
+                    stop = true;
+                }
+            }
+            stop = false;
         }
-        else if (input == '7') {
-            goodsHandler.cleanseFileFromCurrentContents("StoredFood.txt");
-            goodsHandler.cleanseFileFromCurrentContents("StoredBulk.txt");
-            std::cout << "Objects Removed: " << goodsHandler.getCurrentNrOfGoods() << "\n" << std::endl;
-        } 
-       
         else if (input == 'q') {
             stop = true;
         }

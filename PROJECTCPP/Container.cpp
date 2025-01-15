@@ -1,10 +1,10 @@
 #include "Container.h"
 
 Container::Container(double maxWeight)
-    : maxWeight(maxWeight), currentWeight(0.0), isFirstItem(false), maxVolume(maxVolume) {
+    : maxWeight(maxWeight), currentWeight(0.0), isFirstItem(false), maxVolume(0.0f) {
     
 }
-Container::Container(double maxWeight, double maxVolume)
+Container::Container(double maxWeight, float maxVolume)
     : maxWeight(maxWeight), currentWeight(0.0), maxVolume(maxVolume), isFirstItem(false) {
 }
 bool Container::canAddGoods(double weight) const {

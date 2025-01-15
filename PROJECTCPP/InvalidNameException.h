@@ -3,7 +3,7 @@
 
 #include <exception>
 #include <string>
-#include <cctype>  // För isalpha() och isdigit()
+#include <cctype>  
 
 class InvalidNameException : public std::exception {
 public:
@@ -30,7 +30,7 @@ public:
                 return false;  
             }
         }
-        return !number.empty();  // Returnera false för tomma strängar
+        return !number.empty();  
     }
 };
 

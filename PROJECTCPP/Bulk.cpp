@@ -29,4 +29,3 @@ std::string Bulk::toString() const
 {
     return "\nBulk\nVolume: " + std::to_string(this->volume) + "\n" + "Weight: " + std::to_string(getWeight()) + "\nName: " + getName();
 }
-//BERÄKNA VOLUME OM BARA WEIGHT ÄR GIVET
